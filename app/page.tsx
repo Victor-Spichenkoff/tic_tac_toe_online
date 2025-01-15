@@ -1,11 +1,12 @@
 "use client"
 
-import {Chat} from "@/components/functions/Chat";
+// import {Chat} from "@/components/functions/Chat";
 
 export default function Home() {
   return (
     <div>
-      <Chat/>
+      Light
+      {/* <Chat/> */}
     </div>
   )
 }
