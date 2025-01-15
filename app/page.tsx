@@ -5,8 +5,7 @@
 export default function Home() {
   return (
     <div>
-      Light
-      {/* <Chat/> */}
+      <Chat/>
     </div>
   )
 }
