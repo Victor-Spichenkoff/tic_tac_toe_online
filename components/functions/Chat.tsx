@@ -1,5 +1,6 @@
 "use client"
 
+import { socketUrl } from "@/global";
 import {useEffect, useState} from "react";
 
 export const Chat = () => {
@@ -10,7 +11,7 @@ export const Chat = () => {
 
     useEffect(() => {
         // Conectar ao WebSocket ao carregar o componente
-        const ws = new WebSocket(`ws://localhost:2006/ws?roomId=${roomId}`);
+        const ws = new WebSocket(`${socketUrl}/ws?roomId=${roomId}`);
         setSocket(ws);
 
         ws.onmessage = (event) => {
