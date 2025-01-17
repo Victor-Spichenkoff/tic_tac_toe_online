@@ -42,7 +42,7 @@ export const Square = ({ value, index }: ISquare) => {
 
     return (
         <div className={`flex items-center justify-center
-                 ${value == 1 && "dark:text-cross"} ${value == 2 && "text-lightCircle dark:text-darkCircle"}
+                 ${value == 1 && "text-cross"} ${value == 2 && "text-lightCircle dark:text-darkCircle"}
                 font-hand_icons leading-none p-0 m-0
 
                 border-0  ${borders} border-white-600
