@@ -7,15 +7,17 @@ import ThemeToggle from "@/components/functions/ThemeToggle";
 import {useState} from "react";
 import {Header} from "@/components/template/Header";
 import {Button} from "@/components/template/Button";
+import {useRouter} from "next/navigation";
+import {ThemeToggleFooter} from "@/components/template/ThemeToggleFooter";
 
 export default function Home() {
     const values: SquareOptions[] = [1, 0, 1, 0, 2, 2, 2, 0, 1]
     const [onlineGameMode, setOnlineGameMode] = useState(false)
     const [selectionMode, setSelectionMode] = useState(true)
+    const router = useRouter()
 
     const handleOnlineCreate = ()=> {
-        setOnlineGameMode(true)
-        setSelectionMode(false)
+        router.push("/create_connection")
         //TODO -> chamar a api, pegar a res e criar
     }
 
@@ -27,7 +29,7 @@ export default function Home() {
 
                     <div className={"flex justify-between gap-x-4"}>
                         <Button onClick={handleOnlineCreate}>Create</Button>
-                        <Button >Join</Button>
+                        <Button onClick={()=>router.push("/insert_connection")}>Join</Button>
                         <Button >Local</Button>
                         <Button >Bot</Button>
                     </div>
@@ -42,10 +44,7 @@ export default function Home() {
                     ))
                 )}
             </div>
-            <div className={"absolute bottom-0 right-10"}>
-
-                <ThemeToggle/>
-            </div>
+            <ThemeToggleFooter />
         </div>
     )
 }

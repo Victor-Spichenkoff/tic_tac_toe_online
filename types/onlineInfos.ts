@@ -21,7 +21,7 @@ export type SendInfosObject = {
     choosePosition: 3 // index, começa em 0 1 2...
 }
 
-
+//TODO -> Criar um sobre infos da sala (id...)
 /*
 * * Como está tudo antes de começar
 * */

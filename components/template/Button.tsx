@@ -8,9 +8,13 @@ interface ButtonProps {
 
 }
 
+
 export const Button = ({label,onClick,children,className}: ButtonProps) => {
     return (
-        <button className={"border-2 border-yellow-300 dark:border-lightCircle px-3 py-1 rounded-lg hover:text-slate-900 hover:bg-yellow-00 dark:hover:bg-sky-500 inline-block" + className}>
+        <button
+            className={"border-2 border-yellow-300 dark:border-lightCircle px-3 py-1 rounded-lg hover:text-slate-900 hover:bg-yellow-200 dark:hover:bg-sky-500 inline-block" + className}
+            onClick={onClick}
+        >
             {children && children}
             {label && !children && label}
         </button>
