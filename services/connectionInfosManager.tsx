@@ -1,14 +1,15 @@
 "use client"
 
 import {api} from "@/libs/axios";
+import {ApiResponse} from "@/helpers/ApiResponse";
 
 export const getIsFullForRoom = async (roomId: string) => {
     try {
         const res = await api(`/room/isFull/${roomId}`)
-        return res.data
+        return  ApiResponse(!!res.data)
     }
     catch (error) {
-        console.error(error)
-        console.error("Erro no axios up")
+        console.log(error)
+        return ApiResponse( "Server Error", true, error)
     }
 }
