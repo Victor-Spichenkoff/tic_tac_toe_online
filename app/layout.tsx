@@ -60,7 +60,10 @@ export default function RootLayout({children,
         <body
             className={`${geistSans.variable} ${geistMono.variable} 
         ${PatricHand.variable} ${GloriaHallelujah.variable} ${PermanentMarker.variable}
-         antialiased bg-lightBackground dark:bg-darkBackground transition-all duration-500`}
+         antialiased bg-lightBackground dark:bg-darkBackground transition-all duration-500
+         font-hand_text
+         `}
+
         >
 
         <Providers>

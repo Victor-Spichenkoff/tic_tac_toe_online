@@ -4,12 +4,22 @@ import {WinsState} from "@/types/winsState";
 * *
 * */
 export type InGameOnlineState = {
+    roomId: string;
     isFinished: boolean
     player1Wins: boolean
     player2Wins: boolean
     state: SquareOptions[]
     isPLayer1Turn: boolean
     isPlayer2Turn: boolean
+}
+
+export type RoomState = {
+    roomId: string
+    isPLayer1Connected: boolean
+    isPLayer2Connected: boolean
+    player1Points: number
+    player2Points: number
+    drawsCount: number
 }
 
 
@@ -30,4 +40,10 @@ export type MatchStatus = {
 }
 
 
-export type SquareOptions = 0| 1 | 2
+export type FullOnlineInfos = {
+    inGameState: InGameOnlineState
+    roomState: RoomState
+}
+
+
+export type SquareOptions = 0 | 1 | 2
