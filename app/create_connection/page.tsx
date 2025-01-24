@@ -16,17 +16,18 @@ import {api} from "@/libs/axios";
 import axios from "axios";
 import {ApiResponse} from "@/helpers/ApiResponse";
 import {Loading} from "@/components/template/Loading";
+import {setFullRoomState} from "@/libs/stores/RoomState";
+import {setFullInGameState} from "@/libs/stores/inGameOnlineStore";
+import {useDispatch} from "react-redux";
+import {storePlayerInfo} from "@/libs/localStorage/playerInfos";
 
 export default function CreateConnectionScreen() {
     const [roomId, SetRoomId] = useState("")
     const router = useRouter()
+    const dispatch = useDispatch()
     const [socket, setSocket] = useState<WebSocket | null>(null)
     const [isLoading, setIsLoading] = useTransition()
 
-    //TODO -> não reconhece que os que estão conectados
-
-
-    //1 TODO 1-> criar 1 sala com o back
     const CreateRoom = async () => {
         if (!roomId)
             return toast.error("Invalid room id")
@@ -35,14 +36,24 @@ export default function CreateConnectionScreen() {
             // todo -> pegar os dados do online e salvar no global daqui
             let res = await createRoomService(roomId)
             if (res.isError) {
-                toast.error(res.response)
-                console.log("aqui")
+                toast.error(res.errorMessage)
+                // toast.error(res.response)
                 return
             }
 
+            if (res.response?.roomState && res.response.inGameState) {
+                dispatch(setFullInGameState(res.response.inGameState))
+                dispatch(setFullRoomState(res.response.roomState))
+            }
+
+            storePlayerInfo({
+                playerIndex: 1
+            })
+
             toast.success("Room created!")
 
-            setTimeout(()=> router.push("/"), 1000)
+
+        setTimeout(() => router.push("/online/" + res.response?.roomState.roomId), 500)
         })
 
 
@@ -50,7 +61,7 @@ export default function CreateConnectionScreen() {
 
     return (
         <div className={"flex flex-col items-center h-screen"}>
-            { isLoading && <Loading /> }
+            {isLoading && <Loading/>}
 
             <Header label={"Create a game"} className={"mt-4"}/>
             <div className={"flex flex-col items-center justify-center flex-1 -mt-32"}>

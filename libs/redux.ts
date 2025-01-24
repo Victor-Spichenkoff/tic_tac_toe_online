@@ -2,11 +2,13 @@
 
 import { configureStore } from '@reduxjs/toolkit'
 import {inGameStateStore} from "@/libs/stores/inGameOnlineStore";
-// ...
+import {roomStateStore} from "@/libs/stores/RoomState";
+
 
 export const store = configureStore({
   reducer: {
-    inGameState: inGameStateStore
+    inGameState: inGameStateStore,
+    roomState: roomStateStore
   }
 })
 

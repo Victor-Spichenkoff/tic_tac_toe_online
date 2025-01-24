@@ -46,4 +46,9 @@ export type FullOnlineInfos = {
 }
 
 
+export interface FullOnlineInfosWithPlayerIndex extends FullOnlineInfos {
+    playerIndex: 1 | 2
+}
+
+
 export type SquareOptions = 0 | 1 | 2

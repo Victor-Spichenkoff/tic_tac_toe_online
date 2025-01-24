@@ -16,31 +16,49 @@ import {api} from "@/libs/axios";
 import axios from "axios";
 import {ApiResponse} from "@/helpers/ApiResponse";
 import {Loading} from "@/components/template/Loading";
+import {useDispatch} from "react-redux";
+import {setFullRoomState} from "@/libs/stores/RoomState";
+import {setFullInGameState} from "@/libs/stores/inGameOnlineStore";
+import {storePlayerInfo} from "@/libs/localStorage/playerInfos";
 
 export default function CreateConnectionScreen() {
     const [roomId, SetRoomId] = useState("")
     const router = useRouter()
     const [socket, setSocket] = useState<WebSocket | null>(null)
     const [isLoading, setIsLoading] = useTransition()
+    const dispatch = useDispatch()
 
     //TODO -> não reconhece que os que estão conectados
 
 
     //1 TODO 1-> criar 1 sala com o back
-    const CreateRoom = async () => {
+    const JoinRoom = async () => {
         if (!roomId)
             return toast.error("Invalid room id")
 
         startTransition(async () => {
             let res = await joinRoomService(roomId)
             if (res.isError) {
-                toast.error(res.response)
+                toast.error(res.errorMessage)
                 return
             }
 
-            toast.success("Room created!")
+            if(!res.response?.roomState || !res.response.inGameState) {
+                toast.error("Missing data!")
+                return
+            }
 
-            setTimeout(()=> router.push("/"), 1000)
+            dispatch(setFullRoomState(res.response.roomState))
+            dispatch(setFullInGameState(res.response.inGameState))
+
+            // passar se é o 2 ou reconectou como 1
+            storePlayerInfo({
+                playerIndex: res.response.playerIndex
+            })
+
+            toast.info("Joining room...")
+
+            setTimeout(()=> router.push("/online/"+roomId), 1000)
         })
 
 
@@ -54,9 +72,9 @@ export default function CreateConnectionScreen() {
             <div className={"flex flex-col items-center justify-center flex-1 -mt-32"}>
                 {/* Inputs */}
                 <div>
-                    <Input value={roomId} setValue={SetRoomId} label={"Room ID"} onEnter={CreateRoom}/>
+                    <Input value={roomId} setValue={SetRoomId} label={"Room ID"} onEnter={JoinRoom}/>
                 </div>
-                <Button label={"Join room"} onClick={CreateRoom} className={"mt-4"}/>
+                <Button label={"Join room"} onClick={JoinRoom} className={"mt-4"}/>
             </div>
 
 

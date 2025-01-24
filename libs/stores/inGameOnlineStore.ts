@@ -2,22 +2,24 @@ import {InGameOnlineState} from "@/types/onlineInfos";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 interface InGameOnlineSlice {
-    value: InGameOnlineState
+    value: InGameOnlineState | null
 }
 
 // Define the initial state using that type
 const initialState: InGameOnlineSlice = {
-    value: {
-        state: [
-            0, 0, 0,
-            0, 0, 0
-        ],
-        isFinished: false,
-        isPLayer1Turn: true,
-        player1Wins: false,
-        player2Wins: false,
-        isPlayer2Turn: false
-    }
+    value: null
+    //     {
+    //     roomId: "",
+    //     state: [
+    //         0, 0, 0,
+    //         0, 0, 0
+    //     ],
+    //     isFinished: false,
+    //     isPLayer1Turn: true,
+    //     player1Wins: false,
+    //     player2Wins: false,
+    //     isPlayer2Turn: false
+    // }
 }
 
 export const inGameStateSlice = createSlice({
