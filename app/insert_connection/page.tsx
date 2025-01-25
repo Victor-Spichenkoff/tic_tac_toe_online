@@ -20,6 +20,7 @@ import {useDispatch} from "react-redux";
 import {setFullRoomState} from "@/libs/stores/RoomState";
 import {setFullInGameState} from "@/libs/stores/inGameOnlineStore";
 import {storePlayerInfo} from "@/libs/localStorage/playerInfos";
+import {setFullPlayerInfos} from "@/libs/stores/PlayerInfos";
 
 export default function CreateConnectionScreen() {
     const [roomId, SetRoomId] = useState("")
@@ -52,6 +53,9 @@ export default function CreateConnectionScreen() {
             dispatch(setFullInGameState(res.response.inGameState))
 
             // passar se é o 2 ou reconectou como 1
+            dispatch(setFullPlayerInfos({
+                playerIndex: res.response.playerIndex
+            }))
             storePlayerInfo({
                 playerIndex: res.response.playerIndex
             })
@@ -78,11 +82,7 @@ export default function CreateConnectionScreen() {
             </div>
 
 
-            <ThemeToggleFooter>
-                <Button onClick={() => router.push("/")} className={"h-full"}>
-                    <FontAwesomeIcon icon={faArrowLeft}/>
-                </Button>
-            </ThemeToggleFooter>
+            <ThemeToggleFooter useReturnHomeButton/>
         </div>
     )
 }

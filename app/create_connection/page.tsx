@@ -20,6 +20,7 @@ import {setFullRoomState} from "@/libs/stores/RoomState";
 import {setFullInGameState} from "@/libs/stores/inGameOnlineStore";
 import {useDispatch} from "react-redux";
 import {storePlayerInfo} from "@/libs/localStorage/playerInfos";
+import {setFullPlayerInfos} from "@/libs/stores/PlayerInfos";
 
 export default function CreateConnectionScreen() {
     const [roomId, SetRoomId] = useState("")
@@ -41,10 +42,15 @@ export default function CreateConnectionScreen() {
                 return
             }
 
+
             if (res.response?.roomState && res.response.inGameState) {
                 dispatch(setFullInGameState(res.response.inGameState))
                 dispatch(setFullRoomState(res.response.roomState))
             }
+
+            dispatch(setFullPlayerInfos({
+                playerIndex: 1
+            }))
 
             storePlayerInfo({
                 playerIndex: 1
@@ -53,7 +59,7 @@ export default function CreateConnectionScreen() {
             toast.success("Room created!")
 
 
-        setTimeout(() => router.push("/online/" + res.response?.roomState.roomId), 500)
+            setTimeout(() => router.push("/online/" + res.response?.roomState.roomId), 500)
         })
 
 
@@ -73,11 +79,7 @@ export default function CreateConnectionScreen() {
             </div>
 
 
-            <ThemeToggleFooter>
-                <Button onClick={() => router.push("/")} className={"h-full"}>
-                    <FontAwesomeIcon icon={faArrowLeft}/>
-                </Button>
-            </ThemeToggleFooter>
+            <ThemeToggleFooter useReturnHomeButton/>
         </div>
     )
 }

@@ -3,12 +3,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import {inGameStateStore} from "@/libs/stores/inGameOnlineStore";
 import {roomStateStore} from "@/libs/stores/RoomState";
+import { playerInfosStore} from "@/libs/stores/PlayerInfos";
 
 
 export const store = configureStore({
   reducer: {
     inGameState: inGameStateStore,
-    roomState: roomStateStore
+    roomState: roomStateStore,
+    playerInfo: playerInfosStore,
   }
 })
 
