@@ -52,8 +52,14 @@ export const HandleApiCall = async <T>(
                     response: null,
                     errorMessage: error.response.data.message, // Mensagem do erro
                     error: error.response.data, // Detalhes do erro
+                }//todo -> Arrumar para avisar quando nãoe está funcionando a net
+            } else if(error.response?.data && error.code == "ERR_NETWORK")//TODO -> testar mostra que o server tá off
+                return {
+                    isError: true,
+                    response: null,
+                    errorMessage: "Starting server, please wait 1 minute...", // Mensagem do erro
+                    error: error.response.data, // Detalhes do erro
                 }
-            }
         }
 
         // Caso o erro não seja um AxiosError ou não tenha o formato esperado
