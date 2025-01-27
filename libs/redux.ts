@@ -16,11 +16,7 @@ export const store = configureStore({
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            serializableCheck: {
-                // Ignorar o estado do socket (é não serializado)
-                ignoredPaths: ['socketState.value'],
-                ignoredActions: ['socketState/setSocket'],
-            },
+            serializableCheck: false// erro aqui; erro de non serialization para o socket
         }),
 })
 
