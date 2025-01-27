@@ -12,6 +12,7 @@ import {getStorePlayerInfo} from "@/libs/localStorage/playerInfos"
 import {RemoveConnectionService} from "@/services/connectionInfosManager"
 import {GameAction} from "@/types/RequestBody";
 import {InGameOnlineState} from "@/types/onlineInfos";
+import {setSocket} from "@/libs/stores/SocketStore";
 
 interface OnlineFullGameProps {
     roomId: string
@@ -22,7 +23,8 @@ interface OnlineFullGameProps {
 // export const OnlineFullGame = ({roomId, inGameState: inGameInfo}: OnlineFullGameProps) => {
 export const OnlineFullGame = ({roomId}: OnlineFullGameProps) => {
     const inGameInfo = useSelector((state: RootState) => state.inGameState.value)
-    const [socket, setSocket] = useState<WebSocket | null>(null)
+    const socket = useSelector((state: RootState) => state.socketState.value)
+    // const [socket, setSocket] = useState<WebSocket | null>(null)
     const dispatch = useDispatch()
     const playerInfos = getStorePlayerInfo()
 
@@ -36,7 +38,7 @@ export const OnlineFullGame = ({roomId}: OnlineFullGameProps) => {
 
         // Conectar ao WebSocket ao carregar o componente
         const ws = new WebSocket(`${socketUrl}/ws?roomId=${roomId}`)
-        setSocket(ws)
+        dispatch(setSocket(ws))
 
         ws.onmessage = (event) => {
             try {
