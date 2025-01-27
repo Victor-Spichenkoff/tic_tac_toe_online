@@ -1,19 +1,27 @@
 "use client"
 
-import { configureStore } from '@reduxjs/toolkit'
+import {configureStore} from '@reduxjs/toolkit'
 import {inGameStateStore} from "@/libs/stores/inGameOnlineStore";
 import {roomStateStore} from "@/libs/stores/RoomState";
-import { playerInfosStore} from "@/libs/stores/PlayerInfos";
+import {playerInfosStore} from "@/libs/stores/PlayerInfos";
 import {socketStore} from "@/libs/stores/SocketStore";
 
 
 export const store = configureStore({
-  reducer: {
-    inGameState: inGameStateStore,
-    roomState: roomStateStore,
-    playerInfo: playerInfosStore,
-    socketState: socketStore
-  }
+    reducer: {
+        inGameState: inGameStateStore,
+        roomState: roomStateStore,
+        playerInfo: playerInfosStore,
+        socketState: socketStore
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                // Ignorar o estado do socket (é não serializado)
+                ignoredPaths: ['socketState.value'],
+                ignoredActions: ['socketState/setSocket'],
+            },
+        }),
 })
 
 

@@ -14,8 +14,11 @@ import {OnlineFullGame} from "@/components/functions/OnlineFullGame"
 import {toast} from "sonner"
 import {setFullRoomState} from "@/libs/stores/RoomState"
 import {setFullInGameState} from "@/libs/stores/inGameOnlineStore"
+import {socketUrl} from "@/global"
+import {setSocket} from "@/libs/stores/SocketStore"
+import {FormatToObject} from "@/helpers/socketMessageHandler"
+
 export default function OnlineGamePage() {
-    //todo -> pegar os dados e só exigit. Vão ficar localmente
     const params = useParams()
     const dispatch = useDispatch()
     const roomId = typeof params.roomId == "object" ? params.roomId[0] : params.roomId// se não sai string[]
@@ -33,6 +36,42 @@ export default function OnlineGamePage() {
             setIsGameLoaded(true)
 
     }, [inGameInfo, roomInfo])
+
+    useEffect(() => {
+        if (!roomId || !inGameInfo) return
+        if(typeof window == "undefined") return console.log("Nem carregou, não conectando...")
+
+        // Conectar ao WebSocket ao carregar o componente
+        const ws = new WebSocket(`${socketUrl}/ws?roomId=${roomId}`)
+        dispatch(setSocket(ws))
+
+        ws.onmessage = (event) => {
+            try {
+                const message = event.data
+                const inObject = FormatToObject(message)
+                console.log("Recebido: ", inObject)
+                if (!inObject)
+                    return toast.error("Can't receive state")
+
+                dispatch(setFullInGameState(inObject))
+
+            } catch (error) {
+                console.log("Erro ao receber infos: ")
+                console.log(error)
+            }
+        }
+
+        ws.onclose = async () => {
+            console.log("Connection closed")
+            await RemoveConnectionService(playerInfos?.playerIndex ?? 1, roomId)
+        }
+
+        return () => {
+            if(typeof window === "undefined") return console.log("Nem carregou, fechando componente")
+            console.log("Component return, gonna close")
+            ws.close()
+        }
+    }, [])
 
 
     const handleReloadDataClick = async () => {
@@ -79,7 +118,6 @@ export default function OnlineGamePage() {
             <div className={""}>
                 <OnlineFullGame
                     roomId={roomId}
-                    inGameState={inGameInfo}
                 />
             </div>
             <Header label={"IN game info"}/>
