@@ -1,0 +1,21 @@
+1 -> Update para receber erros via message
+- Se throw new ele quebra a conexão
+
+- Criar novas branchs
+
+- Mudar a recepção da mensagem e tradução
+{
+      "type": "data",
+      "message": InGameState
+}
+ou:
+{
+    "type": "error",
+    "message": "A posição já está ocupada."
+}
+
+Ambos como JSON
+
+- API → Vai retornar algo
+- Vou ter que tratar mais embaixo (inferior ao ponto onde conecta)
+    - socket 42

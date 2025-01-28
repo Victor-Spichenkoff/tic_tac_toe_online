@@ -50,12 +50,19 @@ export const useWebSocketConnection = (
       await RemoveConnectionService(playerIndex ?? 1, roomId)
     }
 
+    ws.onerror = (e) => {
+      console.log("Erro no socket: ")
+      console.error(e)
+      // toast.error()
+    }
+
     // Cleanup na desmontagem
     return () => {
       if (typeof window === "undefined") {
         console.log("Nem carregou, fechando componente")
         return
       }
+
       console.log("Component return, gonna close")
       ws.close()
     }
