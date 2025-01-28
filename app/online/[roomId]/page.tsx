@@ -3,22 +3,15 @@
 import {useDispatch, useSelector} from "react-redux"
 import {RootState} from "@/libs/redux"
 import {Header} from "@/components/template/Header"
-import {useEffect, useState, useTransition} from "react"
-import {joinRoomService, RemoveConnectionService} from "@/services/connectionInfosManager"
+import {useCallback, useEffect, useState, useTransition} from "react"
+import { RemoveConnectionService} from "@/services/connectionInfosManager"
 import {useParams, useRouter} from "next/navigation"
-import {getStorePlayerInfo} from "@/libs/localStorage/playerInfos"
 import {ThemeToggleFooter} from "@/components/template/ThemeToggleFooter"
-import {Button} from "@/components/template/Button"
-import {Loading} from "@/components/template/Loading"
 import {OnlineFullGame} from "@/components/functions/OnlineFullGame"
-import {toast} from "sonner"
-import {setFullRoomState} from "@/libs/stores/RoomState"
-import {setFullInGameState} from "@/libs/stores/inGameOnlineStore"
 import {socketUrl} from "@/global"
-import {setSocket} from "@/libs/stores/SocketStore"
-import {FormatToObject} from "@/helpers/socketMessageHandler"
-import {useWebSocketConnection} from "@/hook/useWebSocketConnection";
-import {RejoinWarning} from "@/components/functions/RejoinWarning";
+import {useWebSocketConnection} from "@/hook/useWebSocketConnection"
+import {RejoinWarning} from "@/components/functions/RejoinWarning"
+import {usePlayerInfo} from "@/hook/usePlayerInfo";
 
 export default function OnlineGamePage() {
     const params = useParams()
@@ -27,7 +20,7 @@ export default function OnlineGamePage() {
 
     const roomInfo = useSelector((state: RootState) => state.roomState.value)
     const inGameInfo = useSelector((state: RootState) => state.inGameState.value)
-    const playerInfos = getStorePlayerInfo()
+    const playerInfos = usePlayerInfo()
     // const playerInfos = useSelector((state: RootState) => state.playerInfo.value)
     const [isGameLoaded, setIsGameLoaded] = useState(false)
     const [isLoading, startTransition] = useTransition()
@@ -35,49 +28,21 @@ export default function OnlineGamePage() {
 
     const { socket } = useWebSocketConnection(socketUrl, roomId ?? "undefined", playerInfos?.playerIndex ?? 1, inGameInfo)
 
+
     useEffect(() => {
         if (inGameInfo && roomInfo)
             setIsGameLoaded(true)
 
     }, [inGameInfo, roomInfo])
 
-    // useEffect(() => {
-    //     if (!roomId || !inGameInfo) return
-    //     if(typeof window == "undefined") return console.log("Nem carregou, não conectando...")
-    //
-    //     // Conectar ao WebSocket ao carregar o componente
-    //     const ws = new WebSocket(`${socketUrl}/ws?roomId=${roomId}`)
-    //     dispatch(setSocket(ws))
-    //
-    //     ws.onmessage = (event) => {
-    //         try {
-    //             const message = event.data
-    //             const inObject = FormatToObject(message)
-    //             console.log("Recebido: ", inObject)
-    //             if (!inObject)
-    //                 return toast.error("Can't receive state")
-    //
-    //             dispatch(setFullInGameState(inObject))
-    //
-    //         } catch (error) {
-    //             console.log("Erro ao receber infos: ")
-    //             console.log(error)
-    //         }
-    //     }
-    //
-    //     ws.onclose = async () => {
-    //         console.log("Connection closed")
-    //         await RemoveConnectionService(playerInfos?.playerIndex ?? 1, roomId)
-    //     }
-    //
-    //     return () => {
-    //         if(typeof window === "undefined") return console.log("Nem carregou, fechando componente")
-    //         console.log("Component return, gonna close")
-    //         ws.close()
-    //     }
-    // }, [])
 
-
+    //só assim para não quebrar a conexão
+    useCallback(() => {
+        return (async() => {
+            console.log("Really closing connection")
+            await RemoveConnectionService(playerInfos?.playerIndex ?? 1, roomInfo?.roomId ?? "-1")
+        })
+    }, [])
 
 
     if (!isGameLoaded || !roomInfo || !inGameInfo || !roomId || !playerInfos?.playerIndex)
@@ -88,10 +53,6 @@ export default function OnlineGamePage() {
             isLoading={isLoading}
             />
             )
-
-
-
-
 
 
     return (

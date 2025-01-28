@@ -34,14 +34,12 @@ export default function CreateConnectionScreen() {
             return toast.error("Invalid room id")
 
         startTransition(async () => {
-            // todo -> pegar os dados do online e salvar no global daqui
             let res = await createRoomService(roomId)
             if (res.isError) {
                 toast.error(res.errorMessage)
                 // toast.error(res.response)
                 return
             }
-
 
             if (res.response?.roomState && res.response.inGameState) {
                 dispatch(setFullInGameState(res.response.inGameState))

@@ -6,6 +6,7 @@ import {RootState} from "@/libs/redux"
 import {toast} from "sonner"
 import {getStorePlayerInfo} from "@/libs/localStorage/playerInfos"
 import {GameAction} from "@/types/RequestBody"
+import {usePlayerInfo} from "@/hook/usePlayerInfo";
 
 interface OnlineFullGameProps {
     roomId: string
@@ -16,14 +17,15 @@ interface OnlineFullGameProps {
 export const OnlineFullGame = ({roomId}: OnlineFullGameProps) => {
     const inGameInfo = useSelector((state: RootState) => state.inGameState.value)
     const socket = useSelector((state: RootState) => state.socketState.value)
-    const playerInfos = getStorePlayerInfo()
+    const playerInfos = usePlayerInfo()
+    const playerInfo = usePlayerInfo()
 
     if (!inGameInfo || !playerInfos)
         return "No game info found"
 
     const handleSquareClick = (squareIndex: number) => {
         // bloquear o player
-        const playerInfo = getStorePlayerInfo()
+        // const playerInfo = getStorePlayerInfo()
         const playerName = playerInfo?.playerIndex == 1 ? `isPLayer1Turn` : "isPlayer2Turn"
         if (!inGameInfo[playerName])
             return toast.info("Opponent time")

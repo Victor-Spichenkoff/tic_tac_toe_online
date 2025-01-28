@@ -1,3 +1,14 @@
+4 -> BUG
+- Ao clickar em uma posição já pega, o player pode jogar 2 vezes
+- Deve estar usando a vez do isPLayer2Turn: true e a própria dele
+
+
+
+
+
+3 -> Ele não funciona junto na mesma aba
+- Vai tentar pegar do store, se não der, usa o do localStorage
+
 1 -> Update para receber erros via message
 - Se throw new ele quebra a conexão
 

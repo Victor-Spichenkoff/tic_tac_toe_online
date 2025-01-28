@@ -7,7 +7,7 @@ import {toast} from "sonner";
 import {setFullInGameState} from "@/libs/stores/inGameOnlineStore";
 import {RemoveConnectionService} from "@/services/connectionInfosManager";
 
-
+let firstLoad = true
 export const useWebSocketConnection = (
     socketUrl: string,
     roomId: string,
@@ -49,13 +49,12 @@ export const useWebSocketConnection = (
 
         ws.onclose = async () => {
             console.log("Connection closed")
-            await RemoveConnectionService(playerIndex ?? 1, roomId)
+            // await RemoveConnectionService(playerIndex ?? 1, roomId)
         }
 
         ws.onerror = (e) => {
             console.log("Erro no socket: ")
             console.error(e)
-            // toast.error()
         }
 
         // Cleanup na desmontagem
@@ -64,11 +63,17 @@ export const useWebSocketConnection = (
                 console.log("Nem carregou, fechando componente")
                 return
             }
+            if(!roomId || !inGameInfo) {
+            // if(!roomId || !inGameInfo || firstLoad) {
+                firstLoad = true
+                return console.log("não vai desconectar nada!")
+            }
 
-            console.log("Component return, gonna close")
+            console.log("Component return, closing...")
             ws.close()
         }
-    }, [socketUrl, roomId, inGameInfo, playerIndex, dispatch])
+    }, [])
+    // }, [socketUrl, roomId, inGameInfo, playerIndex, dispatch])
 
     return {socket: socketRef.current} // Retorna a instância do WebSocket se necessário
 }
