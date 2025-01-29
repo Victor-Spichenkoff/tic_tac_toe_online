@@ -8,10 +8,12 @@ export type InGameOnlineState = {
     isFinished: boolean
     player1Wins: boolean
     player2Wins: boolean
+    isDrawn: boolean
     state: SquareOptions[]
     isPLayer1Turn: boolean
     isPlayer2Turn: boolean
 }
+
 
 export type RoomState = {
     roomId: string
