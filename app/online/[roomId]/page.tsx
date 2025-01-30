@@ -61,33 +61,63 @@ export default function OnlineGamePage() {
         <div className={"w-screen max-w-[1200px] px-4 mx-auto"}>
             <div className={"flex justify-center"}>
 
-            <Header label={"room info"}/>
+                <Header label={"GAME"}/>
             </div>
-            <div className={"w-full flex flex-col justify-center items-center"}>
+            <div className={"w-full flex flex-col justify-center items-center mt-5"}>
                 {/*MEIO DA TELA; PC- JOGO + PLACARES*/}
-                <div className={"w-full flex justify-between items-center "}>
-                    {/*PLAYERS*/}
-                    <div className=" w-1/4">
-                        {playerInfos.playerIndex == 1 && (
-                            <PlayerPoints roomInfo={roomInfo} playerIndex={playerInfos.playerIndex}/>
+                {/*celular*/}
+                <div className={"lg:hidden"}>
+                    <div className={"w-full flex flex-col justify-between items-center"}>
+                        {/*PLAYERS*/}
+                        <div className="flex w-full h-fit flex-row pb-4 lg:pb-0 ">
+                            {playerInfos.playerIndex == 1 && (
+                                <PlayerPoints roomInfo={roomInfo} playerIndex={playerInfos.playerIndex}/>
+                            )}
+                        </div>
+                        {/*DRAW*/}
+                        <div className="self-start min-h-[164px]">
+                            <Point points={roomInfo.drawsCount} label={"Draw"} maxSize={10}/>
+                        </div>
+                        {/*JOGO*/}
+                        <div className={"flex-1 mt-12"}>
+                            <OnlineFullGame
+                                roomId={roomId}
+                            />
+                        </div>
 
-                        )}
-                    </div>
-                    {/*JOGO*/}
-                    <div className={"self-center"}>
-                        <OnlineFullGame
-                            roomId={roomId}
-                        />
-                    </div>
-                    {/*DRAW*/}
-                    <div className="w-1/4 self-start">
-                        <Point points={roomInfo.drawsCount} label={"Draw"} maxSize={15}/>
                     </div>
                 </div>
-                <div className={"bg-emerald-500"}>
+                {/*Pcs*/}
+                <div className={"hidden lg:block"}>
+                    <div className={"w-full flex justify-between items-center "}>
+                        {/*PLAYERS*/}
+                        <div className="flex lg:block w-1/4 ">
+                            {playerInfos.playerIndex == 1 && (
+                                <PlayerPoints roomInfo={roomInfo} playerIndex={playerInfos.playerIndex}/>
+
+                            )}
+                        </div>
+                        {/*JOGO*/}
+                        <div className={"self-center"}>
+                            <OnlineFullGame
+                                roomId={roomId}
+                            />
+                        </div>
+                        {/*DRAW*/}
+                        <div className="w-1/4 self-start">
+                            <Point points={roomInfo.drawsCount} label={"Draw"} maxSize={15}/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div className={"hidden lg:blockbg-emerald-500"}>
                     INFOS FINAIS
                 </div>
-                <ThemeToggleFooter useReturnHomeButton/>
+                <div className={"hidden lg:block"}>
+
+                    <ThemeToggleFooter useReturnHomeButton/>
+                </div>
             </div>
         </div>
     )

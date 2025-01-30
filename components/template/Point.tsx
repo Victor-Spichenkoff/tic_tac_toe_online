@@ -46,13 +46,13 @@ export const Point = ({points, label, className, maxSize=10}: PointProps) => {
 
     return (
         <div className={className}>
-            <h2 className={"font-hand_title text-3xl text-center mb-2"}>{label}</h2>
+            <h2 className={"font-hand_title text-xl lg:text-3xl lg:text-center mb-2"}>{label}</h2>
 
             {useNumbers && (
-                <div className={"text-2xl text-center"}>{points}</div>
+                <div className={"text-2xl text-center w-full"}>{points}</div>
             )}
             {!useNumbers && (
-                <div className={"flex flex-col items-center justify-between gap-y-6"}>
+                <div className={"flex lg:flex-col items-center justify-between gap-x-4 lg:gap-x-0 lg:gap-y-6"}>
                     {fullSquares}
                     {remainingCount > 0 && (
                         <div className={`h-32 w-32 

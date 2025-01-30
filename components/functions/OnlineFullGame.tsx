@@ -68,7 +68,7 @@ export const OnlineFullGame = ({roomId}: OnlineFullGameProps) => {
 
     return (
 
-        <div className={"grid grid-cols-3 mx-auto w-[384px]  md:w-[432px] lg:w-fit lg:h-[432px]"}>
+        <div className={"grid grid-cols-3 mx-auto w-[384px] lg:w-[432px] lg:h-[432px]"}>
             {/*/TODO -> criar um componente para cuidar de tudo do jogo (placar, nomes...) e outro interno para o jogo em si*/}
             {inGameInfo.state.map((state, i) => {
                 return (
