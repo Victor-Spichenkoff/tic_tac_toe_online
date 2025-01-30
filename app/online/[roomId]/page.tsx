@@ -79,7 +79,7 @@ export default function OnlineGamePage() {
                             <Point points={roomInfo.drawsCount} label={"Draw"} maxSize={10}/>
                         </div>
                         {/*JOGO*/}
-                        <div className={"flex-1 mt-12"}>
+                        <div className={"flex-1 mt-12 py-12"}>
                             <OnlineFullGame
                                 roomId={roomId}
                             />
