@@ -1,16 +1,18 @@
 "use client"
 
 import {SquareOptions} from "@/types/onlineInfos";
+import {toast} from "sonner";
 
 interface ISquare {
     value: SquareOptions,
     index: number
     onClick: (index: number) => void
+    isDisabled?: boolean
 }
 
 let borders = "border"
 let icon
-export const Square = ({ value, index, onClick }: ISquare) => {
+export const Square = ({ value, index, onClick, isDisabled }: ISquare) => {
     if(value == 1)
         icon = "X"
     else if(value == 2)
@@ -40,6 +42,13 @@ export const Square = ({ value, index, onClick }: ISquare) => {
             borders = "border-t border-l"; break;
     }
 
+    const handleClick = () => {
+        if(isDisabled)
+            toast.error("Game finished")
+
+        onClick(index)
+    }
+
 
     return (
         <div className={`flex items-center justify-center
@@ -50,7 +59,7 @@ export const Square = ({ value, index, onClick }: ISquare) => {
                 border-0  ${borders} border-white-600
                 w-32 h-32 text-8xl md:w-36 md:h-36 md:text-9xl`}
                 style={{ lineHeight: "100%" }}
-             onClick={() => onClick(index)}
+             onClick={handleClick}
         >
                 {/*md:min-w-[556px] md:min-h-[440px]*/}
             { icon }

@@ -9,6 +9,8 @@ import {Header} from "@/components/template/Header";
 import {Button} from "@/components/template/Button";
 import {useRouter} from "next/navigation";
 import {ThemeToggleFooter} from "@/components/template/ThemeToggleFooter";
+import {Point} from "@/components/template/Point";
+import {TestPointsResponsivity} from "@/components/template/TesetPointsResponsitity";
 
 export default function Home() {
     const values: SquareOptions[] = [1, 0, 1, 0, 2, 2, 2, 0, 1]
@@ -36,14 +38,13 @@ export default function Home() {
                 </div>
             )}
 
-
-            <div className={"grid grid-cols-3"}>
-                {onlineGameMode && (
-                    values.map((value, i) => (
-                        <Square value={value} index={i} key={i}/>
-                    ))
-                )}
-            </div>
+            {/*<div className={"grid grid-cols-3"}>*/}
+            {/*    {onlineGameMode && (*/}
+            {/*        values.map((value, i) => (*/}
+            {/*            <Square value={value} index={i} key={i}/>*/}
+            {/*        ))*/}
+            {/*    )}*/}
+            {/*</div>*/}
             <ThemeToggleFooter />
         </div>
     )

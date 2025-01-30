@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {RootState} from "@/libs/redux"
 import {Header} from "@/components/template/Header"
 import {useCallback, useEffect, useState, useTransition} from "react"
-import { RemoveConnectionService} from "@/services/connectionInfosManager"
+import {RemoveConnectionService} from "@/services/connectionInfosManager"
 import {useParams, useRouter} from "next/navigation"
 import {ThemeToggleFooter} from "@/components/template/ThemeToggleFooter"
 import {OnlineFullGame} from "@/components/functions/OnlineFullGame"
@@ -12,6 +12,8 @@ import {socketUrl} from "@/global"
 import {useWebSocketConnection} from "@/hook/useWebSocketConnection"
 import {RejoinWarning} from "@/components/functions/RejoinWarning"
 import {usePlayerInfo} from "@/hook/usePlayerInfo";
+import {Point} from "@/components/template/Point";
+import {PlayerPoints} from "@/components/template/PlayerPoints";
 
 export default function OnlineGamePage() {
     const params = useParams()
@@ -26,7 +28,7 @@ export default function OnlineGamePage() {
     const [isLoading, startTransition] = useTransition()
 
 
-    const { socket } = useWebSocketConnection(socketUrl, roomId ?? "undefined", playerInfos?.playerIndex ?? 1, inGameInfo)
+    const {socket} = useWebSocketConnection(socketUrl, roomId ?? "undefined", playerInfos?.playerIndex ?? 1, inGameInfo)
 
 
     useEffect(() => {
@@ -38,40 +40,55 @@ export default function OnlineGamePage() {
 
     //só assim para não quebrar a conexão
     useCallback(() => {
-        return (async() => {
+        return (async () => {
             console.log("Really closing connection")
             await RemoveConnectionService(playerInfos?.playerIndex ?? 1, roomInfo?.roomId ?? "-1")
         })
-    }, [])
+    }, [playerInfos?.playerIndex, roomInfo?.roomId])
 
 
     if (!isGameLoaded || !roomInfo || !inGameInfo || !roomId || !playerInfos?.playerIndex)
-        return  (
+        return (
             <RejoinWarning
-            roomId={roomId ?? "1"}
-            startTransition={startTransition}
-            isLoading={isLoading}
+                roomId={roomId ?? "1"}
+                startTransition={startTransition}
+                isLoading={isLoading}
             />
-            )
+        )
 
 
     return (
-        <div className={"flex flex-col justify-between items-center"}>
-            <Header label={"room info"}/>
-            <div>
-                player{playerInfos?.playerIndex.toString()}
-            </div>
+        <div className={"w-screen max-w-[1200px] px-4 mx-auto"}>
+            <div className={"flex justify-center"}>
 
-            <div className={""}>
-                <OnlineFullGame
-                    roomId={roomId}
-                />
+            <Header label={"room info"}/>
             </div>
-            <Header label={"IN game info"}/>
-            <div>
-                Vez de: {inGameInfo.isPLayer1Turn ? "player 1" : "player 2"}
+            <div className={"w-full flex flex-col justify-center items-center"}>
+                {/*MEIO DA TELA; PC- JOGO + PLACARES*/}
+                <div className={"w-full flex justify-between items-center "}>
+                    {/*PLAYERS*/}
+                    <div className=" w-1/4">
+                        {playerInfos.playerIndex == 1 && (
+                            <PlayerPoints roomInfo={roomInfo} playerIndex={playerInfos.playerIndex}/>
+
+                        )}
+                    </div>
+                    {/*JOGO*/}
+                    <div className={"self-center"}>
+                        <OnlineFullGame
+                            roomId={roomId}
+                        />
+                    </div>
+                    {/*DRAW*/}
+                    <div className="w-1/4 self-start">
+                        <Point points={roomInfo.drawsCount} label={"Draw"} maxSize={15}/>
+                    </div>
+                </div>
+                <div className={"bg-emerald-500"}>
+                    INFOS FINAIS
+                </div>
+                <ThemeToggleFooter useReturnHomeButton/>
             </div>
-            <ThemeToggleFooter useReturnHomeButton/>
         </div>
     )
 }

@@ -22,6 +22,7 @@ export type RoomState = {
     player1Points: number
     player2Points: number
     drawsCount: number
+    matchCount: number
 }
 
 

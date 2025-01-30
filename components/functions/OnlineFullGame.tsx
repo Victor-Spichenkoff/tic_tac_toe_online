@@ -7,6 +7,7 @@ import {toast} from "sonner"
 import {getStorePlayerInfo} from "@/libs/localStorage/playerInfos"
 import {GameAction} from "@/types/RequestBody"
 import {usePlayerInfo} from "@/hook/usePlayerInfo";
+import {useCallback, useEffect} from "react";
 
 interface OnlineFullGameProps {
     roomId: string
@@ -25,8 +26,10 @@ export const OnlineFullGame = ({roomId}: OnlineFullGameProps) => {
 
     const handleSquareClick = (squareIndex: number) => {
         // bloquear o player
-        // const playerInfo = getStorePlayerInfo()
         const playerName = playerInfo?.playerIndex == 1 ? `isPLayer1Turn` : "isPlayer2Turn"
+        if(inGameInfo.isFinished)
+            return
+
         if (!inGameInfo[playerName])
             return toast.info("Opponent time")
 
@@ -48,9 +51,24 @@ export const OnlineFullGame = ({roomId}: OnlineFullGameProps) => {
         socket.send(stringConverted)
     }
 
+    // todo -> não está mostrando a msg de quem ganhou
+    useEffect((): any=> {
+       if(inGameInfo.isFinished) {
+           if(inGameInfo.isDrawn)
+               return toast.info("Draw!")
+           else if(//só assim para ter ganhado
+               (inGameInfo.player1Wins && playerInfo?.playerIndex == 1) ||
+               (inGameInfo.player2Wins && playerInfo?.playerIndex == 2)
+           )
+               toast.success("You won!")
+           else
+               toast.error("You lose!")
+       }
+    }, [inGameInfo.isFinished, inGameInfo.isDrawn, inGameInfo.player1Wins, playerInfo?.playerIndex, inGameInfo.player2Wins])
 
     return (
-        <div className={"grid grid-cols-3 w-fit mx-auto "}>
+
+        <div className={"grid grid-cols-3 mx-auto w-[384px]  md:w-[432px] lg:w-fit lg:h-[432px]"}>
             {/*/TODO -> criar um componente para cuidar de tudo do jogo (placar, nomes...) e outro interno para o jogo em si*/}
             {inGameInfo.state.map((state, i) => {
                 return (
@@ -58,7 +76,9 @@ export const OnlineFullGame = ({roomId}: OnlineFullGameProps) => {
                         value={state}
                         index={i}
                         onClick={handleSquareClick}
-                        key={i}/>
+                        key={i}
+                        isDisabled={inGameInfo.isFinished}
+                    />
                 )
             })}
         </div>
