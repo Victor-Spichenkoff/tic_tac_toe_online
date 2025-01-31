@@ -14,6 +14,7 @@ import {RejoinWarning} from "@/components/functions/RejoinWarning"
 import {usePlayerInfo} from "@/hook/usePlayerInfo";
 import {Point} from "@/components/template/Point";
 import {PlayerPoints} from "@/components/template/PlayerPoints";
+import {TurnIndicator} from "@/components/template/TurnIndicator";
 
 export default function OnlineGamePage() {
     const params = useParams()
@@ -60,7 +61,6 @@ export default function OnlineGamePage() {
     return (
         <div className={"w-screen max-w-[1200px] px-4 mx-auto"}>
             <div className={"flex justify-center"}>
-
                 <Header label={"GAME"}/>
             </div>
             <div className={"w-full flex flex-col justify-center items-center mt-5"}>
@@ -75,8 +75,16 @@ export default function OnlineGamePage() {
                             )}
                         </div>
                         {/*DRAW*/}
-                        <div className="self-start min-h-[164px]">
-                            <Point points={roomInfo.drawsCount} label={"Draw"} maxSize={10}/>
+                        <div className="self-start min-h-[164px] flex w-full">
+                            <div className={"flex-1 "}>
+
+                                <Point points={roomInfo.drawsCount} label={"Draw"} maxSize={15}/>
+                            </div>
+                            {/*<TurnIndicator*/}
+                            {/*    playerIndex={playerInfos.playerIndex ?? 1}*/}
+                            {/*    isPlayer1Turn={inGameInfo.isPLayer1Turn}*/}
+                            {/*    isFinished={inGameInfo.isFinished}*/}
+                            {/*/>*/}
                         </div>
                         {/*JOGO*/}
                         <div className={"flex-1 mt-12 py-12"}>
@@ -98,14 +106,19 @@ export default function OnlineGamePage() {
                             )}
                         </div>
                         {/*JOGO*/}
-                        <div className={"self-center"}>
+                        <div className={"self-center mx-12"}>
                             <OnlineFullGame
                                 roomId={roomId}
                             />
+
                         </div>
                         {/*DRAW*/}
-                        <div className="w-1/4 self-start">
-                            <Point points={roomInfo.drawsCount} label={"Draw"} maxSize={15}/>
+                        <div className="w-1/4 self-start flex flex-col h-[400px]">
+                            <div className={"flex-1 "}>
+
+                                <Point points={roomInfo.drawsCount} label={"Draw"} maxSize={15}/>
+                            </div>
+                            {/*<TurnIndb*/}
                         </div>
                     </div>
                 </div>
