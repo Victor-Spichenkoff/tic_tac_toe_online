@@ -21,6 +21,7 @@ import { toast } from "sonner"
 import { setFullPlayerInfos } from "@/libs/stores/PlayerInfos"
 import {setSocket} from "@/libs/stores/SocketStore";
 import {useRemoveConnection} from "@/hook/useRemoveConnection";
+import {RestartMatchButton} from "@/components/functions/RestartMatchButton";
 
 export default function OnlineGamePage() {
     const params = useParams()
@@ -88,6 +89,7 @@ export default function OnlineGamePage() {
 
     return (
         <div className={"w-screen max-w-[1200px] px-4 mx-auto"}>
+            { inGameInfo.isFinished && <RestartMatchButton /> }
             <div className={"flex justify-center"}>
                 <Header label={"GAME"} />
             </div>

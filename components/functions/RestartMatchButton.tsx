@@ -14,10 +14,13 @@ export const RestartMatchButton = () => {
     const handleReturnHomeButton = () => router.push("/")
 
     return (
-        <div className={""}>
+        <div className={"h-screen w-screen bg-black/50 flex justify-center items-center"}>
             <div>{message}</div>
+            <div className={"flex"}>
             <Button label={"Again"} onClick={handleRestartButton}/>
             <Button label={"Home"} onClick={handleReturnHomeButton}/>
+
+            </div>
         </div>
     )
 }
