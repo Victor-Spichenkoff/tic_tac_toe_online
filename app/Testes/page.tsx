@@ -31,7 +31,8 @@ export default function Teses() {
         player1Points: 1,
         player2Points: 0,
         isPLayer1Connected: true,
-        isPLayer2Connected: true
+        isPLayer2Connected: true,
+        matchCount: 1
     }
     const inGameInfo = useSelector((state: RootState) => state.inGameState.value)
     const playerInfos = {playerIndex: 1}//usePlayerInfo()

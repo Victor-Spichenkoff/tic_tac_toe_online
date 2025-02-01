@@ -66,7 +66,7 @@ export const RestartMatchButton = ({playerIndex}: RestartMatchButtonProps) => {
     const handleReturnHomeButton = () => router.push("/")
 
     return (
-        <div className={"z-40 absolute top-0 left-0 h-screen w-screen bg-black/50 flex  flex-col justify-center items-center text-4xl gap-y-6"}>
+        <div className={"z-40 fixed top-0 left-0 h-screen w-screen bg-black/50 flex  flex-col justify-center items-center text-4xl gap-y-6"}>
             <div className={`
             
                 ${message.includes("Won") && "text-darkCircle"}
