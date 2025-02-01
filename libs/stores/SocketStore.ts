@@ -13,7 +13,7 @@ export const socketSlice = createSlice({
     name: 'SocketSlice',
     initialState,
     reducers: {
-        setSocket: (state, action: PayloadAction<WebSocket>) => {
+        setSocket: (state, action: PayloadAction<WebSocket | null>) => {
             state.value = action.payload
         },
     }

@@ -69,7 +69,6 @@ export const useWebSocketConnection = (
                 return console.log("não vai desconectar nada!")
             }
 
-            console.log("Component return, closing...")
             ws.close()
         }
     }, [])

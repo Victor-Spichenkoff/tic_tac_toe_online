@@ -37,6 +37,12 @@ export const RejoinWarning = ({ roomId,startTransition, isLoading }: RejoinWarni
             }
 
             if (!res.response?.roomState || !res.response.inGameState) {
+                toast.warning("Room information conflict")
+                // se estiver com problema, descomentar, mais restrito que o outro
+                // toast.error("Room information conflict")
+                // return
+            }
+            if (!res.response) {
                 toast.error("Room information conflict")
                 return
             }

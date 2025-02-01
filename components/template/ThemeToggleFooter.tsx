@@ -7,15 +7,27 @@ import {useRouter} from "next/navigation";
 interface ThemeToggleFooterProps {
     children?: React.ReactNode
     useReturnHomeButton?: boolean
+    usePopReturnHomeButton?: boolean
+    onReturnClick?: () => void
 }
 
-export const ThemeToggleFooter = ({children, useReturnHomeButton}: ThemeToggleFooterProps) => {
+export const ThemeToggleFooter = ({children, useReturnHomeButton,usePopReturnHomeButton,onReturnClick}: ThemeToggleFooterProps) => {
     const router = useRouter()
+
+    const handleReturnButton = () => {
+        if(onReturnClick)
+            onReturnClick()
+
+        if(usePopReturnHomeButton)
+            router.back()
+        else
+            router.push("/")
+    }
 
     return (
         <div className={"absolute bottom-4 right-4 flex gap-x-4"}>
-            {useReturnHomeButton && (
-                <Button onClick={() => router.push("/")} className={"h-[40px] inline-block"}>
+            {(useReturnHomeButton || usePopReturnHomeButton) && (
+                <Button onClick={handleReturnButton} className={"h-[40px] inline-block"}>
                     <FontAwesomeIcon icon={faArrowLeft}/>
                 </Button>
             )}

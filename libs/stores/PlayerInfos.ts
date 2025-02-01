@@ -14,7 +14,7 @@ export const playerInfosSlice = createSlice({
     name: 'InGameOnlineStore',
     initialState,
     reducers: {
-        setFullPlayerInfos: (state, action: PayloadAction<PlayerInfos>) => {
+        setFullPlayerInfos: (state, action: PayloadAction<PlayerInfos | null>) => {
             state.value = action.payload
         },
     }

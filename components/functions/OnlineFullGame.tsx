@@ -48,7 +48,7 @@ export const OnlineFullGame = ({roomId}: OnlineFullGameProps) => {
         }
         const stringConverted = JSON.stringify(sendMessage)
 
-        socket.send(stringConverted)
+        socket?.send(stringConverted)
     }
 
     // todo -> não está mostrando a msg de quem ganhou

@@ -29,12 +29,13 @@ export const inGameStateSlice = createSlice({
         setFullInGameState: (state, action: PayloadAction<InGameOnlineState>) => {
             state.value = action.payload
         },
+        setInGameStateToNull: (state) => { state.value = null }
     }
 })
 
 
 // para usar fora rapidamente
-export const {  setFullInGameState } = inGameStateSlice.actions
+export const {  setFullInGameState, setInGameStateToNull } = inGameStateSlice.actions
 
 //ele que usa para configurar no store
 export const inGameStateStore = inGameStateSlice.reducer

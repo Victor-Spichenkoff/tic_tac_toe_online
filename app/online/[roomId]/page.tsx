@@ -1,20 +1,26 @@
 "use client"
 
-import {useDispatch, useSelector} from "react-redux"
-import {RootState} from "@/libs/redux"
-import {Header} from "@/components/template/Header"
-import {useCallback, useEffect, useState, useTransition} from "react"
-import {RemoveConnectionService} from "@/services/connectionInfosManager"
-import {useParams, useRouter} from "next/navigation"
-import {ThemeToggleFooter} from "@/components/template/ThemeToggleFooter"
-import {OnlineFullGame} from "@/components/functions/OnlineFullGame"
-import {socketUrl} from "@/global"
-import {useWebSocketConnection} from "@/hook/useWebSocketConnection"
-import {RejoinWarning} from "@/components/functions/RejoinWarning"
-import {usePlayerInfo} from "@/hook/usePlayerInfo";
-import {Point} from "@/components/template/Point";
-import {PlayerPoints} from "@/components/template/PlayerPoints";
-import {TurnIndicator} from "@/components/template/TurnIndicator";
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "@/libs/redux"
+import { Header } from "@/components/template/Header"
+import { useCallback, useEffect, useState, useTransition } from "react"
+import { RemoveConnectionService } from "@/services/connectionInfosManager"
+import { useParams } from "next/navigation"
+import { ThemeToggleFooter } from "@/components/template/ThemeToggleFooter"
+import { OnlineFullGame } from "@/components/functions/OnlineFullGame"
+import { socketUrl } from "@/global"
+import { useWebSocketConnection } from "@/hook/useWebSocketConnection"
+import { RejoinWarning } from "@/components/functions/RejoinWarning"
+import { usePlayerInfo } from "@/hook/usePlayerInfo";
+import { Point } from "@/components/template/Point";
+import { PlayerPoints } from "@/components/template/PlayerPoints";
+import { TurnIndicator } from "@/components/template/TurnIndicator";
+import {  setInGameStateToNull } from "@/libs/stores/inGameOnlineStore"
+import { setRoomStateToNull } from "@/libs/stores/RoomState"
+import { toast } from "sonner"
+import { setFullPlayerInfos } from "@/libs/stores/PlayerInfos"
+import {setSocket} from "@/libs/stores/SocketStore";
+import {useRemoveConnection} from "@/hook/useRemoveConnection";
 
 export default function OnlineGamePage() {
     const params = useParams()
@@ -27,24 +33,46 @@ export default function OnlineGamePage() {
     // const playerInfos = useSelector((state: RootState) => state.playerInfo.value)
     const [isGameLoaded, setIsGameLoaded] = useState(false)
     const [isLoading, startTransition] = useTransition()
+    const [allowUnloadSocket, setAllowUnloadSocket] = useState(false)
 
-
-    const {socket} = useWebSocketConnection(socketUrl, roomId ?? "undefined", playerInfos?.playerIndex ?? 1, inGameInfo)
-
+    const { socket } = useWebSocketConnection(socketUrl, roomId ?? "undefined", playerInfos?.playerIndex ?? 1, inGameInfo)
+    const {destroyConnection} = useRemoveConnection(roomId ?? "-1", playerInfos?.playerIndex ?? 1)
 
     useEffect(() => {
         if (inGameInfo && roomInfo)
             setIsGameLoaded(true)
 
+
     }, [inGameInfo, roomInfo])
+
+    // desligando e resetando as coisas
+    const turnEverythingOff = async () => {
+        if(!allowUnloadSocket)
+            return
+
+        console.log("Apagando infos")
+
+        await destroyConnection()
+    }
+
+    useEffect(()=> {
+        return () => { turnEverythingOff() }
+    })
 
 
     //só assim para não quebrar a conexão
     useCallback(() => {
-        return (async () => {
+        return async () => {
             console.log("Really closing connection")
-            await RemoveConnectionService(playerInfos?.playerIndex ?? 1, roomInfo?.roomId ?? "-1")
-        })
+            await destroyConnection("Forced to remove game data!")
+            // await RemoveConnectionService(playerInfos?.playerIndex ?? 1, roomInfo?.roomId ?? "-1")
+            //
+            // dispatch(setInGameStateToNull())
+            // dispatch(setRoomStateToNull())
+            // dispatch(setFullPlayerInfos(null))
+            //
+            // toast.warning()
+        }
     }, [playerInfos?.playerIndex, roomInfo?.roomId])
 
 
@@ -61,30 +89,30 @@ export default function OnlineGamePage() {
     return (
         <div className={"w-screen max-w-[1200px] px-4 mx-auto"}>
             <div className={"flex justify-center"}>
-                <Header label={"GAME"}/>
+                <Header label={"GAME"} />
             </div>
             <div className={"w-full flex flex-col justify-center items-center mt-5"}>
                 {/*MEIO DA TELA; PC- JOGO + PLACARES*/}
                 {/*celular*/}
-                <div className={"lg:hidden"}>
+                <div className={"lg:hidden px-4"}>
                     <div className={"w-full flex flex-col justify-between items-center"}>
                         {/*PLAYERS*/}
                         <div className="flex w-full h-fit flex-row pb-4 lg:pb-0 ">
                             {playerInfos.playerIndex == 1 && (
-                                <PlayerPoints roomInfo={roomInfo} playerIndex={playerInfos.playerIndex}/>
+                                <PlayerPoints roomInfo={roomInfo} playerIndex={playerInfos.playerIndex} />
                             )}
                         </div>
                         {/*DRAW*/}
                         <div className="self-start min-h-[164px] flex w-full">
                             <div className={"flex-1 "}>
 
-                                <Point points={roomInfo.drawsCount} label={"Draw"} maxSize={15}/>
+                                <Point points={roomInfo.drawsCount} label={"Draw"} maxSize={15} />
                             </div>
-                            {/*<TurnIndicator*/}
-                            {/*    playerIndex={playerInfos.playerIndex ?? 1}*/}
-                            {/*    isPlayer1Turn={inGameInfo.isPLayer1Turn}*/}
-                            {/*    isFinished={inGameInfo.isFinished}*/}
-                            {/*/>*/}
+                            <TurnIndicator
+                                isFinished={inGameInfo.isFinished}
+                                isPLayer1Turn={inGameInfo.isPLayer1Turn}
+                                playerIndex={playerInfos.playerIndex}
+                            />
                         </div>
                         {/*JOGO*/}
                         <div className={"flex-1 mt-12 py-12"}>
@@ -101,7 +129,7 @@ export default function OnlineGamePage() {
                         {/*PLAYERS*/}
                         <div className="flex lg:block w-1/4 ">
                             {playerInfos.playerIndex == 1 && (
-                                <PlayerPoints roomInfo={roomInfo} playerIndex={playerInfos.playerIndex}/>
+                                <PlayerPoints roomInfo={roomInfo} playerIndex={playerInfos.playerIndex} />
 
                             )}
                         </div>
@@ -116,9 +144,14 @@ export default function OnlineGamePage() {
                         <div className="w-1/4 self-start flex flex-col h-[400px]">
                             <div className={"flex-1 "}>
 
-                                <Point points={roomInfo.drawsCount} label={"Draw"} maxSize={15}/>
+                                <Point points={roomInfo.drawsCount} label={"Draw"} maxSize={15} />
                             </div>
-                            {/*<TurnIndb*/}
+                            {/* <TurnIndicator/> */}
+                            <TurnIndicator
+                                isFinished={inGameInfo.isFinished}
+                                isPLayer1Turn={inGameInfo.isPLayer1Turn}
+                                playerIndex={playerInfos.playerIndex}
+                            />
                         </div>
                     </div>
                 </div>
@@ -129,7 +162,10 @@ export default function OnlineGamePage() {
                 </div>
                 <div className={"hidden lg:block"}>
 
-                    <ThemeToggleFooter useReturnHomeButton/>
+                    <ThemeToggleFooter
+                        usePopReturnHomeButton
+                        onReturnClick={() => setAllowUnloadSocket(true)}
+                    />
                 </div>
             </div>
         </div>

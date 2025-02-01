@@ -17,12 +17,13 @@ export const roomStateSlice = createSlice({
         setFullRoomState: (state, action: PayloadAction<RoomState>) => {
             state.value = action.payload
         },
+        setRoomStateToNull: (state) => { state.value = null }
     }
 })
 
 
 // para usar fora rapidamente
-export const {  setFullRoomState } = roomStateSlice.actions
+export const {  setFullRoomState, setRoomStateToNull } = roomStateSlice.actions
 
 //ele que usa para configurar no store
 export const roomStateStore = roomStateSlice.reducer
