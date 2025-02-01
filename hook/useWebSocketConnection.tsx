@@ -35,7 +35,6 @@ export const useWebSocketConnection = (
             try {
                 const message = event.data
                 const socketResponseObject = FormatToSocketResponse(message)
-                console.log("Recebido: ", socketResponseObject)
                 if (!socketResponseObject) return toast.error("Can't receive state")
 
                 if (socketResponseObject.isError || !socketResponseObject.inGameState)

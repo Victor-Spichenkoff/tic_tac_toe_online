@@ -14,13 +14,13 @@ export const TurnIndicator = ({isPLayer1Turn, playerIndex,isFinished} :TurnIndic
     useEffect(() => {
         let newText = "Turn Info"
 
-        if (isFinished) 
+        if (isFinished)
             newText = "Match Finished"
-         else if (isPLayer1Turn && playerIndex === 1 || !isPLayer1Turn && playerIndex == 2) 
+         else if (isPLayer1Turn && playerIndex === 1 || !isPLayer1Turn && playerIndex == 2)
             newText = "Your Turn"
-         else if (isPLayer1Turn && playerIndex === 2 || !isPLayer1Turn && playerIndex == 1) 
+         else if (isPLayer1Turn && playerIndex === 2 || !isPLayer1Turn && playerIndex == 1)
             newText = "Opponent Turn"
-        
+
 
         setText(newText)
     }, [isPLayer1Turn, isFinished, playerIndex])

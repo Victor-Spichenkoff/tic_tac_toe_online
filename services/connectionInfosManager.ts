@@ -38,8 +38,13 @@ export const RemoveConnectionService = async (playerIndex: 1 | 2, roomId: string
         const res = await api.post(`/disconnect/${playerIndex}/${roomId}`)
         return !!res.data
     })
+}
 
-
+export const GetAllGameInfo = async (roomId: string) => {
+    return await HandleApiCall(async () => {
+        const res = await api(`/infos/${roomId}`)
+        return res.data as FullOnlineInfos
+    })
 }
 
 

@@ -89,7 +89,7 @@ export default function OnlineGamePage() {
 
     return (
         <div className={"w-screen max-w-[1200px] px-4 mx-auto"}>
-            { inGameInfo.isFinished && <RestartMatchButton /> }
+            { inGameInfo.isFinished && <RestartMatchButton playerIndex={playerInfos.playerIndex ?? 1}/> }
             <div className={"flex justify-center"}>
                 <Header label={"GAME"} />
             </div>

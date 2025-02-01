@@ -12,10 +12,10 @@ interface ISquare {
 
 let borders = "border"
 let icon
-export const Square = ({ value, index, onClick, isDisabled }: ISquare) => {
-    if(value == 1)
+export const Square = ({value, index, onClick, isDisabled}: ISquare) => {
+    if (value == 1)
         icon = "X"
-    else if(value == 2)
+    else if (value == 2)
         icon = "O"
     else {
         icon = " "
@@ -23,27 +23,36 @@ export const Square = ({ value, index, onClick, isDisabled }: ISquare) => {
 
     switch (index) {
         case 0:
-            borders = "border-b border-r"; break;
+            borders = "border-b border-r";
+            break;
         case 1:
-            borders = "border-b border-r border-l"; break;
+            borders = "border-b border-r border-l";
+            break;
         case 2:
-            borders = "border-b border-l"; break;
+            borders = "border-b border-l";
+            break;
         case 3:
-            borders = "border-b border-t border-r"; break;
+            borders = "border-b border-t border-r";
+            break;
         case 4:
-            borders = "border-b border-l border-t border-r"; break;
+            borders = "border-b border-l border-t border-r";
+            break;
         case 5:
-            borders = "border-b border-l border-t"; break;
+            borders = "border-b border-l border-t";
+            break;
         case 6:
-            borders = "border-r border-t"; break;
+            borders = "border-r border-t";
+            break;
         case 7:
-            borders = "border-t border-r border-l"; break;
+            borders = "border-t border-r border-l";
+            break;
         case 8:
-            borders = "border-t border-l"; break;
+            borders = "border-t border-l";
+            break;
     }
 
     const handleClick = () => {
-        if(isDisabled)
+        if (isDisabled)
             toast.error("Game finished")
 
         onClick(index)
@@ -58,11 +67,11 @@ export const Square = ({ value, index, onClick, isDisabled }: ISquare) => {
                 
                 border-0  ${borders} border-white-600
                 w-32 h-32 text-8xl md:w-36 md:h-36 md:text-9xl`}
-                style={{ lineHeight: "100%" }}
+             style={{lineHeight: "100%"}}
              onClick={handleClick}
         >
-                {/*md:min-w-[556px] md:min-h-[440px]*/}
-            { icon }
+            {/*md:min-w-[556px] md:min-h-[440px]*/}
+            {icon}
         </div>
     )
 }

@@ -52,19 +52,19 @@ export const OnlineFullGame = ({roomId}: OnlineFullGameProps) => {
     }
 
     // todo -> não está mostrando a msg de quem ganhou
-    useEffect((): any=> {
-       if(inGameInfo.isFinished) {
-           if(inGameInfo.isDrawn)
-               return toast.info("Draw!")
-           else if(//só assim para ter ganhado
-               (inGameInfo.player1Wins && playerInfo?.playerIndex == 1) ||
-               (inGameInfo.player2Wins && playerInfo?.playerIndex == 2)
-           )
-               toast.success("You won!")
-           else
-               toast.error("You lose!")
-       }
-    }, [inGameInfo.isFinished, inGameInfo.isDrawn, inGameInfo.player1Wins, playerInfo?.playerIndex, inGameInfo.player2Wins])
+    // useEffect((): any=> {
+    //    if(inGameInfo.isFinished) {
+    //        if(inGameInfo.isDrawn)
+    //            return toast.info("Draw!")
+    //        else if(//só assim para ter ganhado
+    //            (inGameInfo.player1Wins && playerInfo?.playerIndex == 1) ||
+    //            (inGameInfo.player2Wins && playerInfo?.playerIndex == 2)
+    //        )
+    //            toast.success("You won!")
+    //        else
+    //            toast.error("You lose!")
+    //    }
+    // }, [inGameInfo.isFinished, inGameInfo.isDrawn, inGameInfo.player1Wins, playerInfo?.playerIndex, inGameInfo.player2Wins])
 
     return (
 
