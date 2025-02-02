@@ -6,28 +6,33 @@ import {Button} from "@/components/template/Button";
 import {useRouter} from "next/navigation";
 import {ThemeToggleFooter} from "@/components/template/ThemeToggleFooter";
 import { toast } from "sonner";
+import {ConnectionTest} from "@/components/functions/ConnectionTest";
 export default function Home() {
     const router = useRouter()
+    const [navigationLock, setNavigationLock] = useState(true)
 
     const handleOnlineCreate = ()=> {
+        if(navigationLock) return toast.warning("Wait for the server to start")
         router.push("/create_connection")
     }
 
-    const handleNotBuildClick = () => {
-        toast.info("Man Working...")
+    const handleOnlineJoin = ()=> {
+        if(navigationLock) return toast.warning("Wait for the server to start")
+        router.push("/insert_connection")
     }
+
 
     return (
         <div className={'flex justify-center items-center'}>
-            
+            { navigationLock && <ConnectionTest setNavigationLock={setNavigationLock} /> }
                 <div className={"h-screen flex flex-col items-center justify-center gap-y-40"}>
                    <Header label={"Mode Choose"}/>
 
                     <div className={"flex justify-between gap-x-4"}>
                         <Button onClick={handleOnlineCreate}>Create</Button>
-                        <Button onClick={()=>router.push("/insert_connection")}>Join</Button>
-                        <Button onClick={handleNotBuildClick}>Local</Button>
-                        <Button onClick={handleNotBuildClick}>Bot</Button>
+                        <Button onClick={handleOnlineJoin}>Join</Button>
+                        <Button onClick={() => router.push("/bot")}>Bot</Button>
+                        <Button onClick={() => toast.info("Man Working...")}>Local</Button>
                     </div>
                 </div>
             <ThemeToggleFooter />
