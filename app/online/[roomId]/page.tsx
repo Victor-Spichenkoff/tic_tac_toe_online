@@ -23,6 +23,7 @@ import {setSocket} from "@/libs/stores/SocketStore";
 import {useRemoveConnection} from "@/hook/useRemoveConnection";
 import {RestartMatchButton} from "@/components/functions/RestartMatchButton";
 import {useCheckConnectionAndRedirect} from "@/hook/useCheckConnection";
+import {useDisconnectAndRemoveOnClose} from "@/hook/useDisconnectAndRemoveOnClose";
 
 export default function OnlineGamePage() {
     useCheckConnectionAndRedirect()
@@ -39,7 +40,8 @@ export default function OnlineGamePage() {
     const [allowUnloadSocket, setAllowUnloadSocket] = useState(false)
 
     const { socket } = useWebSocketConnection(socketUrl, roomId ?? "undefined", playerInfos?.playerIndex ?? 1, inGameInfo)
-    const {destroyConnection} = useRemoveConnection(roomId ?? "-1", playerInfos?.playerIndex ?? 1)
+    // const {destroyConnection} = useRemoveConnection(roomId ?? "-1", playerInfos?.playerIndex ?? 1, )
+    useDisconnectAndRemoveOnClose(roomId, playerInfos?.playerIndex)
 
     useEffect(() => {
         if (inGameInfo && roomInfo)
@@ -55,7 +57,8 @@ export default function OnlineGamePage() {
 
         console.log("Apagando infos")
 
-        await destroyConnection()
+        toast.warning("Use effect return")
+        // await destroyConnection("[Use effect return]")
     }
 
     useEffect(()=> {
@@ -67,14 +70,9 @@ export default function OnlineGamePage() {
     useCallback(() => {
         return async () => {
             console.log("Really closing connection")
-            await destroyConnection("Forced to remove game data!")
-            // await RemoveConnectionService(playerInfos?.playerIndex ?? 1, roomInfo?.roomId ?? "-1")
-            //
-            // dispatch(setInGameStateToNull())
-            // dispatch(setRoomStateToNull())
-            // dispatch(setFullPlayerInfos(null))
-            //
-            // toast.warning()
+            // await destroyConnection("[Use Callback return] Forced to remove game data!")
+            // await destroyConnection("Forced to remove game data!")
+
         }
     }, [playerInfos?.playerIndex, roomInfo?.roomId])
 
@@ -142,7 +140,10 @@ export default function OnlineGamePage() {
                             <OnlineFullGame
                                 roomId={roomId}
                             />
+                            <div>
 
+                            {playerInfos.playerIndex == 1 ? "PLayer 1" : "PLayer 2"}
+                            </div>
                         </div>
                         {/*DRAW*/}
                         <div className="w-1/4 self-start flex flex-col h-[400px]">

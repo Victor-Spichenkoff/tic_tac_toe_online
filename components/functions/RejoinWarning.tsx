@@ -6,9 +6,10 @@ import {joinRoomService} from "@/services/connectionInfosManager"
 import {setFullRoomState} from "@/libs/stores/RoomState"
 import {setFullInGameState} from "@/libs/stores/inGameOnlineStore"
 import {useDispatch} from "react-redux"
-import {getStorePlayerInfo} from "@/libs/localStorage/playerInfos"
-import {TransitionStartFunction} from "react"
+import {getStorePlayerInfo, storePlayerInfo} from "@/libs/localStorage/playerInfos"
+import {TransitionStartFunction, useState} from "react"
 import {useRouter} from "next/navigation"
+import {setFullPlayerInfos} from "@/libs/stores/PlayerInfos";
 
 
 interface RejoinWarningProps {
@@ -24,6 +25,7 @@ export const RejoinWarning = ({ roomId,startTransition, isLoading }: RejoinWarni
     const router = useRouter()
     const dispatch = useDispatch()
 
+
     const handleReloadDataClick = async () => {
         if (!playerInfos || !roomId) {
             toast.error("No player info! You need to rejoin...", {duration: 3000})
@@ -34,21 +36,31 @@ export const RejoinWarning = ({ roomId,startTransition, isLoading }: RejoinWarni
 
             if (res.isError) {
                 toast.error(res.errorMessage)
+                return
             }
 
             if (!res.response?.roomState || !res.response.inGameState) {
-                toast.warning("Room information conflict")
+                toast.error("Game state mismatch. Please rejoin the game.")
                 // se estiver com problema, descomentar, mais restrito que o outro
                 // toast.error("Room information conflict")
-                // return
+                return router.push("/")
             }
             if (!res.response) {
                 toast.error("Room information conflict")
                 return
             }
 
+            console.log("Plaeyr index> " + res.response.playerIndex)
+            console.log(res.response.inGameState)
+
             dispatch(setFullRoomState(res.response?.roomState))
             dispatch(setFullInGameState(res.response?.inGameState))
+            dispatch(setFullPlayerInfos({
+                playerIndex: res.response.playerIndex,
+            }))
+            storePlayerInfo({
+                playerIndex: res.response?.playerIndex,
+            })
 
             toast.info("Restoring game state...")
         })

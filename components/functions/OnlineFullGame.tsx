@@ -31,7 +31,7 @@ export const OnlineFullGame = ({roomId}: OnlineFullGameProps) => {
             return
 
         if (!inGameInfo[playerName])
-            return toast.info("Opponent time")
+            return toast.info("Opponent Turn")
 
         console.log("Click no quadrado")
 

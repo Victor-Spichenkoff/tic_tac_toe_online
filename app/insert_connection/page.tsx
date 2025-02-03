@@ -32,10 +32,6 @@ export default function CreateConnectionScreen() {
     const [isLoading, setIsLoading] = useTransition()
     const dispatch = useDispatch()
 
-    //TODO -> não reconhece que os que estão conectados
-
-
-    //1 TODO 1-> criar 1 sala com o back
     const JoinRoom = async () => {
         if (!roomId)
             return toast.error("Invalid room id")
@@ -65,10 +61,8 @@ export default function CreateConnectionScreen() {
 
             toast.info("Joining room...")
 
-            setTimeout(()=> router.push("/online/"+roomId), 1000)
+            router.push("/online/"+roomId)
         })
-
-
     }
 
     return (

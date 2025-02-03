@@ -8,7 +8,7 @@ export const usePlayerInfo = () => {
     const router = useRouter()
 
     //priorizar o remoto, evitar conflitos
-    const storeUSerInfo =  useSelector((state: RootState) => state.playerInfo.value)
+    const storeUSerInfo = useSelector((state: RootState) => state.playerInfo.value)
     if(storeUSerInfo)
        return storeUSerInfo
 

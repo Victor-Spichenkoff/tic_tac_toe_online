@@ -1,3 +1,12 @@
+5 -> ERRO NO SOCKET
+- Não está desligando ao fechar. Fica com o playerXConnceted = true
+- Se cria e sai (sem conectar o 2), ele continua marcando como craido (Room, o InGAme diz que não existe    )
+
+
+5.2 -> Fluxo do erro de reconexão (em caso de 2° conectado)
+- Ele desconecta o 1 e reconecta como 2 (a api envia certo)
+- Envio uma redesconxão, ele apaga o 2, apagando a room
+
 4 -> BUG
 - Ao clickar em uma posição já pega, o player pode jogar 2 vezes
 - Deve estar usando a vez do isPLayer2Turn: true e a própria dele

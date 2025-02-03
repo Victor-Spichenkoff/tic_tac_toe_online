@@ -11,17 +11,15 @@ export const useRemoveConnection = (roomId: string, playerIndex: 1 | 2) => {
 
 
     const destroyConnection = async (specialMessage?: string) => {
-
-
         await RemoveConnectionService(playerIndex, roomId)
-    dispatch(setInGameStateToNull())
-    dispatch(setRoomStateToNull())
-    dispatch(setFullPlayerInfos(null))
-    dispatch(setSocket(null))
+        dispatch(setInGameStateToNull())
+        dispatch(setRoomStateToNull())
+        dispatch(setFullPlayerInfos(null))
+        dispatch(setSocket(null))
 
-    toast.warning(specialMessage ?? "Remove local game data!")
+        toast.warning(specialMessage ?? "Remove local game data!")
 
     }
 
-    return { destroyConnection }
+    return {destroyConnection}
 }
