@@ -1,4 +1,4 @@
-import {useEffect, useRef} from "react"
+import {useCallback, useEffect, useRef} from "react"
 import {useDispatch} from "react-redux"
 import {InGameOnlineState} from "@/types/onlineInfos"
 import {setSocket} from "@/libs/stores/SocketStore";
@@ -19,7 +19,13 @@ export const useWebSocketConnection = (
     const socketRef = useRef<WebSocket | null>(null) // Garante que a instância seja única e persistente
 
     useEffect(() => {
+        // if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN){
+        //     console.log("Tentou conectar, mas já está. Cancelando...")
+        //     return
+        // }
+
         if (!roomId || !inGameInfo) return
+
         if (typeof window === "undefined") {
             console.log("Nem carregou, não conectando...")
             return

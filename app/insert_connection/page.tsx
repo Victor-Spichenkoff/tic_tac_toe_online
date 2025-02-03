@@ -21,8 +21,11 @@ import {setFullRoomState} from "@/libs/stores/RoomState";
 import {setFullInGameState} from "@/libs/stores/inGameOnlineStore";
 import {storePlayerInfo} from "@/libs/localStorage/playerInfos";
 import {setFullPlayerInfos} from "@/libs/stores/PlayerInfos";
+import {useCheckConnectionAndRedirect} from "@/hook/useCheckConnection";
 
 export default function CreateConnectionScreen() {
+    useCheckConnectionAndRedirect()
+
     const [roomId, SetRoomId] = useState("")
     const router = useRouter()
     const [socket, setSocket] = useState<WebSocket | null>(null)

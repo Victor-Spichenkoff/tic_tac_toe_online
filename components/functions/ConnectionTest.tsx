@@ -81,6 +81,11 @@ export const ConnectionTest = ({setNavigationLock}: ConnectionTestProps) => {
     }
 
     useEffect(() => {
+        if(process.env.NODE_ENV == "development") {
+            setNavigationLock(false)
+            return
+        }
+
         (async () => {
             const success = await handleTestAgainClick()
 

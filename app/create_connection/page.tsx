@@ -21,8 +21,10 @@ import {setFullInGameState} from "@/libs/stores/inGameOnlineStore";
 import {useDispatch} from "react-redux";
 import {storePlayerInfo} from "@/libs/localStorage/playerInfos";
 import {setFullPlayerInfos} from "@/libs/stores/PlayerInfos";
+import {useCheckConnectionAndRedirect} from "@/hook/useCheckConnection";
 
 export default function CreateConnectionScreen() {
+    useCheckConnectionAndRedirect()
     const [roomId, SetRoomId] = useState("")
     const router = useRouter()
     const dispatch = useDispatch()

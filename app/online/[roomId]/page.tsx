@@ -22,11 +22,13 @@ import { setFullPlayerInfos } from "@/libs/stores/PlayerInfos"
 import {setSocket} from "@/libs/stores/SocketStore";
 import {useRemoveConnection} from "@/hook/useRemoveConnection";
 import {RestartMatchButton} from "@/components/functions/RestartMatchButton";
+import {useCheckConnectionAndRedirect} from "@/hook/useCheckConnection";
 
 export default function OnlineGamePage() {
+    useCheckConnectionAndRedirect()
+
     const params = useParams()
-    const dispatch = useDispatch()
-    const roomId = typeof params.roomId == "object" ? params.roomId[0] : params.roomId// se não sai string[]
+    const roomId = typeof params.roomId == "object" ? params.roomId[0] : params.roomId// senão sai string[]
 
     const roomInfo = useSelector((state: RootState) => state.roomState.value)
     const inGameInfo = useSelector((state: RootState) => state.inGameState.value)

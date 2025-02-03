@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "api": "cd ../backend && dotnet run --launch-profile http",
-    "start-api": "run --launch-profile http\"",
+    "start-api": "run --launch-profile http",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
