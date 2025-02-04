@@ -140,10 +140,6 @@ export default function OnlineGamePage() {
                             <OnlineFullGame
                                 roomId={roomId}
                             />
-                            <div>
-
-                            {playerInfos.playerIndex == 1 ? "PLayer 1" : "PLayer 2"}
-                            </div>
                         </div>
                         {/*DRAW*/}
                         <div className="w-1/4 self-start flex flex-col h-[400px]">

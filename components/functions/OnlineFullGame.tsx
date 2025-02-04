@@ -10,12 +10,12 @@ import {usePlayerInfo} from "@/hook/usePlayerInfo";
 import {useCallback, useEffect} from "react";
 
 interface OnlineFullGameProps {
-    roomId: string
+    roomId?: string
+    useOffline?: boolean
 }
 
-
 // export const OnlineFullGame = ({roomId, inGameState: inGameInfo}: OnlineFullGameProps) => {
-export const OnlineFullGame = ({roomId}: OnlineFullGameProps) => {
+export const OnlineFullGame = ({roomId, useOffline}: OnlineFullGameProps) => {
     const inGameInfo = useSelector((state: RootState) => state.inGameState.value)
     const socket = useSelector((state: RootState) => state.socketState.value)
     const playerInfos = usePlayerInfo()

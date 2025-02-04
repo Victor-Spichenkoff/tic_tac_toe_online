@@ -5,6 +5,7 @@ import {inGameStateStore} from "@/libs/stores/inGameOnlineStore";
 import {roomStateStore} from "@/libs/stores/RoomState";
 import {playerInfosStore} from "@/libs/stores/PlayerInfos";
 import {socketStore} from "@/libs/stores/SocketStore";
+import {inGameBotStateStore} from "@/libs/stores/inGameOfflineStore";
 
 
 export const store = configureStore({
@@ -12,7 +13,8 @@ export const store = configureStore({
         inGameState: inGameStateStore,
         roomState: roomStateStore,
         playerInfo: playerInfosStore,
-        socketState: socketStore
+        socketState: socketStore,
+        botState: inGameBotStateStore,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
