@@ -9,12 +9,9 @@ interface InGameOnlineSlice {
 const initialState: InGameOnlineSlice = {
     value: {
         state: [
-            1, 2, 0,
-            1, 2, 0,
+            0, 0, 0,
+            0, 0, 0,
             0, 0, 0
-            // 0, 0, 0,
-            // 0, 0, 0,
-            // 0, 0, 0
         ],
         isFinished: false,
         isPlayer1Turn: true,

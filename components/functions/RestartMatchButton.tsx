@@ -60,11 +60,23 @@ export const RestartMatchButton = ({playerIndex, isBotMode, isLocalMulti}: Resta
                 newMessage = "You Lose"
             else if (inGameState.player1Wins && playerIndex === 2 || inGameState.player2Wins && playerIndex == 1)
                 newMessage = "You Won"
-
         }
 
 
         setMessage(newMessage)
+
+        return ()=> {
+            if(!inGameState?.roomId) {toast.error("No game info"); return;}
+
+            (async () => {
+                const res = await GetAllGameInfo(inGameState?.roomId)
+
+                if(res.isError || !res.response)
+                    return toast.error("Something went wrong!")
+
+                dispatch(setFullRoomState(res.response?.roomState))
+            })()
+        }
     }, [])
 
     const handleOnlineRestartButton = async () => {

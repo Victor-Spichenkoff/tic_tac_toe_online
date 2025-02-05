@@ -99,9 +99,9 @@ export default function OnlineGamePage() {
                     <div className={"w-full flex flex-col justify-between items-center"}>
                         {/*PLAYERS*/}
                         <div className="flex w-full h-fit flex-row pb-4 lg:pb-0 ">
-                            {playerInfos.playerIndex == 1 && (
+                            {/*{playerInfos.playerIndex == 1 && (*/}
                                 <PlayerPoints roomInfo={roomInfo} playerIndex={playerInfos.playerIndex} />
-                            )}
+                            {/*)}*/}
                         </div>
                         {/*DRAW*/}
                         <div className="self-start min-h-[164px] flex w-full">
@@ -129,11 +129,11 @@ export default function OnlineGamePage() {
                     <div className={"w-full flex justify-between items-center "}>
                         {/*PLAYERS*/}
                         <div className="flex lg:block w-1/4 ">
-                            {playerInfos.playerIndex == 1 && (
+                            {/*{playerInfos.playerIndex == 1 && (*/}
                                 <PlayerPoints roomInfo={roomInfo} playerIndex={playerInfos.playerIndex} />
-
-                            )}
+                            {/*)}*/}
                         </div>
+
                         {/*JOGO*/}
                         <div className={"self-center mx-12"}>
                             <OnlineFullGame
