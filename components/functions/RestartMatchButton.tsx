@@ -25,7 +25,6 @@ export const RestartMatchButton = ({playerIndex, offlineMode}: RestartMatchButto
 
     const [message, setMessage] = useState("")
 
-
     useEffect(() => {
         let newMessage = "Match Finished"
         //offline

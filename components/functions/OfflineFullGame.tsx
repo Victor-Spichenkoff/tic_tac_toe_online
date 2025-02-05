@@ -107,7 +107,6 @@ export const OfflineFullGame = ({setIsLoading}: OfflineFullGameProps) => {
         }
 
         if (finalState.matchCount % 2 == 0) {
-            console.log("Bot vai comecçar a proxima")
             setIsBotStarting(true)// permitir ele iniciar rápidamente
         }
 
@@ -119,7 +118,6 @@ export const OfflineFullGame = ({setIsLoading}: OfflineFullGameProps) => {
         // ainda tem coisa
         if (gameInfo.state.includes(1) || gameInfo.state.includes(2)) return
 
-        console.log("BOT START!")
         setIsBotStarting(false)
         let currentState = gameInfo
 
@@ -130,7 +128,6 @@ export const OfflineFullGame = ({setIsLoading}: OfflineFullGameProps) => {
     }
 
     useEffect(() => {
-        console.log("Bot may start")
         if (isBotStarting)
             handleBotStart()
     }, [gameInfo])

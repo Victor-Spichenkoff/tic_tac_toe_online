@@ -33,7 +33,6 @@ export const OnlineFullGame = ({roomId, useOffline}: OnlineFullGameProps) => {
         if (!inGameInfo[playerName])
             return toast.info("Opponent Turn")
 
-        console.log("Click no quadrado")
 
         if (!playerInfo?.playerIndex)
             return toast.error("No player info!")

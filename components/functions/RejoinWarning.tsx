@@ -50,9 +50,6 @@ export const RejoinWarning = ({ roomId,startTransition, isLoading }: RejoinWarni
                 return
             }
 
-            console.log("Plaeyr index> " + res.response.playerIndex)
-            console.log(res.response.inGameState)
-
             dispatch(setFullRoomState(res.response?.roomState))
             dispatch(setFullInGameState(res.response?.inGameState))
             dispatch(setFullPlayerInfos({

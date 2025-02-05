@@ -45,8 +45,8 @@ export default function BotPage() {
                             <div className={"w-full flex flex-row lg:flex-col h-[150px] lg:h-[500px] "}>
                                 <div
                                     className={"flex w-full lg:w-fit lg:h-full flex-row lg:flex-col justify-between lg:justify-start lg:gap-y-4"}>
-                                    <Point points={gameState.playerPoints} label={"Your Points"}/>
-                                    <Point points={gameState.botPoints} label={"Opponent Points"}/>
+                                    <Point points={gameState.playerPoints} label={"Your Points"} maxSize={5}/>
+                                    <Point points={gameState.botPoints} label={"Opponent Points"} maxSize={5}/>
                                 </div>
                             </div>
 
@@ -83,8 +83,8 @@ export default function BotPage() {
                             <div className={"w-full flex flex-row lg:flex-col h-[150px] lg:h-[500px] "}>
                                 <div
                                     className={"flex w-full lg:w-fit lg:h-full flex-row lg:flex-col justify-between lg:justify-start lg:gap-y-4"}>
-                                    <Point points={gameState.playerPoints} label={"Your Points"}/>
-                                    <Point points={gameState.botPoints} label={"Opponent Points"}/>
+                                    <Point points={gameState.playerPoints} label={"Your Points"} maxSize={5}/>
+                                    <Point points={gameState.botPoints} label={"Opponent Points"}  maxSize={5}/>
                                 </div>
                             </div>
                         </div>

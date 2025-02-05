@@ -79,7 +79,6 @@ export const useWebSocketConnection = (
             if(!roomId || !inGameInfo) {
             // if(!roomId || !inGameInfo || firstLoad) {
                 firstLoad = true
-                return console.log("não vai desconectar nada!")
             }
 
             // if (socketRef.current && socketRef.current?.readyState === WebSocket.OPEN) {
