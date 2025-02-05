@@ -25,7 +25,7 @@ export const Point = ({points, label, className, maxSize=10}: PointProps) => {
         useNumbers = false
         for (let i = 0; i < fullSquareCount; i++) {
             fullSquares.push(
-                <div className={'h-32 overflow-hidden'} key={i}>
+                <div className={'h-32 overflow-hidden ' + className} key={i}>
                     <div
                         className={`h-32 w-32 border-2 border-white relative flex items-center justify-center overflow-visible`}>
                         <div className={`   

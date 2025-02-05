@@ -73,8 +73,7 @@ export const useBotMatch = ({gameInfo, setIsLoading}:UseBotMatchProps) => {
 
             // já ganhou/empatou
             if (!isPlayerWin && currentState.state.includes(0)) {
-                // Aguarda a conclusão da jogada do jogador antes de iniciar a do bot
-                await Sleep(500) // Animação fluida
+                await Sleep(250)
 
                 currentState = await handleBotTurn(currentState)
             }

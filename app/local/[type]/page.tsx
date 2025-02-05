@@ -91,11 +91,10 @@ export default function BotPage() {
                     <div className={"w-full flex justify-between items-center "}>
                         {/*PLAYERS*/}
                         <div className="flex lg:block w-1/4 min-w-[184px]">
-                            <div className={"w-full flex flex-row lg:flex-col h-[150px] lg:h-[500px] "}>
-                                <div
-                                    className={"flex w-full lg:w-fit lg:h-full flex-row lg:flex-col justify-between lg:justify-start lg:gap-y-4"}>
-                                    <Point points={gameState.player1Points} label={"Your Points"} maxSize={5}/>
-                                    <Point points={gameState.player2Points} label={"Opponent Points"} maxSize={5}/>
+                            <div className={"w-full flex flex-row lg:flex-col h-[150px] lg:h-[500px]"}>
+                                <div className={"flex w-full lg:w-fit lg:h-full flex-row lg:flex-col justify-between lg:justify-start lg:gap-y-4"}>
+                                    <Point points={gameState.player1Points} label={type == 'bot' ? "Your Points" : "Player 1"} maxSize={5} className={"flex-1"}/>
+                                    <Point points={gameState.player2Points} label={type == 'bot' ? "Opponent Points" : "Player 2"} maxSize={5} className={"flex-1"}/>
                                 </div>
                             </div>
                         </div>
@@ -107,9 +106,8 @@ export default function BotPage() {
                                 gameInfo={gameState}/>
                         </div>
                         {/*DRAW*/}
-                        <div className="w-1/4 self-start flex flex-col h-[400px]">
+                        <div className="w-1/4 self-start flex flex-col h-[400px] min-w-[170px]">
                             <div className={"flex-1 "}>
-
                                 <Point points={gameState.drawCount} label={"Draw"} maxSize={15}/>
                             </div>
                             {/* <TurnIndicator/> */}

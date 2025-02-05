@@ -1,15 +1,19 @@
 "use client"
 import {SquareOptions} from "@/types/onlineInfos";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Header} from "@/components/template/Header";
 import {Button} from "@/components/template/Button";
 import {useRouter} from "next/navigation";
 import {ThemeToggleFooter} from "@/components/template/ThemeToggleFooter";
 import { toast } from "sonner";
 import {ConnectionTest} from "@/components/functions/ConnectionTest";
+import {setFullInGameBotState} from "@/libs/stores/inGameOfflineStore";
+import {getResetLocalState} from "@/helpers/Bot";
+import {useDispatch} from "react-redux";
 export default function Home() {
     const router = useRouter()
     const [navigationLock, setNavigationLock] = useState(true)
+    const dispatch = useDispatch()
 
     const handleOnlineCreate = ()=> {
         if(navigationLock) return toast.warning("Wait for the server to start")
@@ -20,6 +24,10 @@ export default function Home() {
         if(navigationLock) return toast.warning("Wait for the server to start")
         router.push("/insert_connection")
     }
+
+    useEffect(() => {
+        dispatch(setFullInGameBotState(getResetLocalState()))
+    }, [])
 
 
     return (

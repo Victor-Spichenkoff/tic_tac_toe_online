@@ -113,13 +113,15 @@ export const RestartMatchButton = ({playerIndex, isBotMode, isLocalMulti}: Resta
 
     const handleReturnHomeButton = () => router.push("/")
 
+    console.log((message.includes("Lose") || message.includes("1")) && "text-cross")
     return (
         <div
             className={"z-40 fixed top-0 left-0 h-screen w-screen bg-black/50 flex  flex-col justify-center items-center text-4xl gap-y-6"}>
             <div className={`
             
-                ${message.includes("Won") && "text-darkCircle"}
-                ${message.includes("Lose") && "text-cross"}
+                ${(message.includes("Won") && !message.includes("Player")) && "text-darkCircle"}
+                ${message.includes("2") && "text-lightCircle dark:text-darkCircle"}
+                ${(message.includes("Lose") || message.includes("1")) && "text-cross"}
                 ${message.includes("Draw") && "text-yellow-400"}
             `}>{message}</div>
             <div className={"flex gap-4"}>

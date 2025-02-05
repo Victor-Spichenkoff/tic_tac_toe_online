@@ -17,10 +17,8 @@ interface OfflineFullGameProps {
 
 export const OfflineFullGame = ({setIsLoading, useBot}: OfflineFullGameProps) => {
     const dispatch = useDispatch()
-    // const [localState, setLocaState] = useState<InGameOfflineBot>(gameInfo)
     const gameInfo = useSelector((state: RootState) => state.botState.value)
     if (!gameInfo) return null
-    const [isBotStarting, setIsBotStarting] = useState(false)
 
     const { handleSquareClickWithBot } = useBotMatch({gameInfo, setIsLoading})
     const { handleLocalClickWithPlayer } = usePlayerMatch({gameInfo})

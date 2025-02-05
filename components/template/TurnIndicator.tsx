@@ -38,9 +38,11 @@ export const TurnIndicator = ({isPLayer1Turn, playerIndex, isFinished, isLocalMu
     return (
         <div className={`text-md flex justify-center font-hand_text
         h-fit
-            ${text.includes("Your") && "text-darkCircle"}
-            ${text.includes("Opponent") && "text-cross"}
+            ${text.includes("Your")  && "text-darkCircle"}
+            ${text.includes("2") && "text-lightCircle dark:text-darkCircle"}
+            ${(text.includes("Opponent") || text.includes("1")) && "text-cross"}
             ${text.includes("Finished") && "text-yellow-400"}
+            
         `}>
             {text}
         </div>

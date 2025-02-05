@@ -1,4 +1,5 @@
 import {SquareOptions} from "@/types/onlineInfos"
+import {InGameOfflineBot} from "@/types/offilineMatch";
 
 // export const GetBotMove = async (state: SquareOptions[]) => {
 //
@@ -99,7 +100,7 @@ export const WinCheckForPlayer = (playerIndex: number, state: SquareOptions[]): 
 }
 
 export const IsDraw = (state: SquareOptions[]) => {
-    if(state.includes(0)) return false
+    if (state.includes(0)) return false
 
     const isPlayerWin = WinCheckForPlayer(1, state)
     const isBotWin = WinCheckForPlayer(2, state)
@@ -107,6 +108,20 @@ export const IsDraw = (state: SquareOptions[]) => {
     return !isPlayerWin && !isPlayerWin
 }
 
+export const getResetLocalState = (): InGameOfflineBot => {
+    return {
+        state: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        isPlayer1Turn: true,
+        isPlayer2Turn: false,
+        player2Points: 0,
+        player1Points: 0,
+        matchCount: 1,
+        isFinished: false,
+        player1Wins: false,
+        player2Wins: false,
+        drawCount: 0
 
+    }
+}
 
-export const Sleep = (msTime: number) => new Promise(resolve => setTimeout(()=>resolve(true), msTime))
+export const Sleep = (msTime: number) => new Promise(resolve => setTimeout(() => resolve(true), msTime))

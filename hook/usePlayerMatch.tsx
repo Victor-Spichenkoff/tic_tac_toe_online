@@ -19,6 +19,7 @@ export const usePlayerMatch = ({gameInfo}: UsePlayerMatchProps) => {
             throw "Invalid move!"
         }
 
+
         if (gameInfo.isPlayer1Turn) {
             finalState[index] = 1
         }
@@ -45,29 +46,35 @@ export const usePlayerMatch = ({gameInfo}: UsePlayerMatchProps) => {
     const handleLocalClickWithPlayer = (index: number) => {
         if (gameInfo.isFinished) return
         let currentState
-        let isPlayerWin = false
+        let isPlayer1Win = false
+        let isPlayer2Win = false
 
-        if (gameInfo.isPlayer1Turn) {
             currentState = handleLocalPlayerTurn(index)
-            isPlayerWin = WinCheckForPlayer(1, currentState.state)
-
-        } else if (!currentState)
+        if (gameInfo.isPlayer1Turn) {
+            // currentState = handleLocalPlayerTurn(index)
+            isPlayer1Win = WinCheckForPlayer(1, currentState.state)
+        } else if (gameInfo.isPlayer2Turn) {
+            // currentState = handleLocalPlayerTurn(index)
+            isPlayer2Win = WinCheckForPlayer(2, currentState.state)
+        }
+        else if (!currentState) {
             return toast.error("Something went wrong!")
+        }
         else
             toast.error("Wait your turn!")
 
 
-        const isPlayer2Win = WinCheckForPlayer(2, currentState.state)
+        // const isPlayer2Win = WinCheckForPlayer(2, currentState.state)
         const isDraw = IsDraw(currentState.state)
 
-        if (!isPlayerWin && !isPlayer2Win && !isDraw) return dispatch(setFullInGameBotState(currentState))
+        if (!isPlayer1Win && !isPlayer2Win && !isDraw) return dispatch(setFullInGameBotState(currentState))
 
         const finalState = {...currentState}
 
         finalState.isFinished = true
         finalState.matchCount += 1
 
-        if (isPlayerWin) {
+        if (isPlayer1Win) {
             finalState.player1Wins = true
             finalState.player1Points += 1
         } else if (isPlayer2Win) {
