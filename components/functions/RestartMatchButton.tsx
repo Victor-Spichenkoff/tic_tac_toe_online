@@ -66,7 +66,8 @@ export const RestartMatchButton = ({playerIndex, isBotMode, isLocalMulti}: Resta
         setMessage(newMessage)
 
         return ()=> {
-            if(!inGameState?.roomId) {toast.error("No game info"); return;}
+            if(!inGameState?.roomId) return
+            // if(!inGameState?.roomId) {toast.error("No game info"); return;}
 
             (async () => {
                 const res = await GetAllGameInfo(inGameState?.roomId)

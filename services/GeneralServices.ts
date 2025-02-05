@@ -1,6 +1,5 @@
 import {HandleApiCall} from "@/helpers/ApiResponse";
 import {api} from "@/libs/axios";
-import {FullOnlineInfos} from "@/types/onlineInfos";
 
 export const TestApiWorkService = async () => {
     return await HandleApiCall(async () => {
