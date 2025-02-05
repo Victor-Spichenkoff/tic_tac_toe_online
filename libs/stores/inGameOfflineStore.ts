@@ -17,12 +17,12 @@ const initialState: InGameOnlineSlice = {
             // 0, 0, 0
         ],
         isFinished: false,
-        isPlayerTurn: true,
-        isBotTurn: false,
-        playerWins: false,
-        botWins: false,
-        botPoints: 0,
-        playerPoints: 0,
+        isPlayer1Turn: true,
+        isPlayer2Turn: false,
+        player1Wins: false,
+        player2Wins: false,
+        player2Points: 0,
+        player1Points: 0,
         drawCount: 0,
         matchCount: 1
     }

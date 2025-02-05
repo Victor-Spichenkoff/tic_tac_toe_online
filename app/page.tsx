@@ -31,8 +31,8 @@ export default function Home() {
                     <div className={"flex justify-between gap-x-4"}>
                         <Button onClick={handleOnlineCreate}>Create</Button>
                         <Button onClick={handleOnlineJoin}>Join</Button>
-                        <Button onClick={() => router.push("/bot")}>Bot</Button>
-                        <Button onClick={() => toast.info("Man Working...")}>Local</Button>
+                        <Button onClick={() => router.push("/local/bot")}>Bot</Button>
+                        <Button onClick={() => router.push("/local/player")}>Local</Button>
                     </div>
                 </div>
             <ThemeToggleFooter />

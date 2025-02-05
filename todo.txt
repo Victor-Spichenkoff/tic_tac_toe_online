@@ -1,3 +1,9 @@
+6 -> bot -> 2 tipos
+- Nçao está trocando o para o player 2
+- Ver se o online tem bug de ficar trocando de tamanho ao mudar o turno (local tem)
+- Preparar o player vs player local
+
+
 5 -> ERRO NO SOCKET
 - Não está desligando ao fechar. Fica com o playerXConnceted = true
 - Se cria e sai (sem conectar o 2), ele continua marcando como craido (Room, o InGAme diz que não existe    )

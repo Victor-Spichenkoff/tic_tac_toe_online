@@ -13,10 +13,11 @@ import {setFullInGameBotState} from "@/libs/stores/inGameOfflineStore";
 
 interface RestartMatchButtonProps {
     playerIndex: 1 | 2
-    offlineMode?: boolean
+    isBotMode?: boolean
+    isLocalMulti?: boolean
 }
 
-export const RestartMatchButton = ({playerIndex, offlineMode}: RestartMatchButtonProps) => {
+export const RestartMatchButton = ({playerIndex, isBotMode, isLocalMulti}: RestartMatchButtonProps) => {
     const socket = useSelector((state: RootState) => state.socketState.value)
     const inGameState = useSelector((state: RootState) => state.inGameState.value)
     const offlineState = useSelector((state: RootState) => state.botState.value)
@@ -28,17 +29,29 @@ export const RestartMatchButton = ({playerIndex, offlineMode}: RestartMatchButto
     useEffect(() => {
         let newMessage = "Match Finished"
         //offline
-        if (offlineMode) {
+        if (isBotMode) {
             if (!offlineState) return
             console.log(offlineState)
-            if (offlineState.botWins)
+            if (offlineState.player2Wins)
                 newMessage = "You Lose"
-            else if (offlineState.playerWins)
+            else if (offlineState.player1Wins)
                 newMessage = "You Won"
             else
                 newMessage = "It's Drawn!"
-        // online
-        } else {
+
+            // online
+        } else if(isLocalMulti) {
+            if (!offlineState) return
+
+            if (offlineState.player2Wins)
+                newMessage = "Player 2 Won!"
+            else if (offlineState.player1Wins)
+                newMessage = "Player 1 Won!"
+            else
+                newMessage = "It's Drawn!"
+        }
+
+        else {
             if (!inGameState) return
 
             if (inGameState.isDrawn)
@@ -89,11 +102,11 @@ export const RestartMatchButton = ({playerIndex, offlineMode}: RestartMatchButto
         const newState: InGameOfflineBot = {
             ...offlineState,
             state: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            isPlayerTurn: isPlayerStart,
-            isBotTurn: !isPlayerStart,
+            isPlayer1Turn: isPlayerStart,
+            isPlayer2Turn: !isPlayerStart,
             isFinished: false,
-            botWins: false,
-            playerWins: false
+            player2Wins: false,
+            player1Wins: false
         }
         dispatch(setFullInGameBotState(newState))
     }
@@ -111,7 +124,7 @@ export const RestartMatchButton = ({playerIndex, offlineMode}: RestartMatchButto
             `}>{message}</div>
             <div className={"flex gap-4"}>
                 <Button label={"Again"}
-                        onClick={offlineMode ? handleOfflineRestartButton : handleOnlineRestartButton}
+                        onClick={isBotMode || isLocalMulti ? handleOfflineRestartButton : handleOnlineRestartButton}
                         className={"px-4 py-2"}
                 />
                 <Button label={"Home"} onClick={handleReturnHomeButton} className={"px-4 py-2"}/>

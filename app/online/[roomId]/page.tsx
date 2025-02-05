@@ -27,7 +27,6 @@ import {useDisconnectAndRemoveOnClose} from "@/hook/useDisconnectAndRemoveOnClos
 
 export default function OnlineGamePage() {
     useCheckConnectionAndRedirect()
-
     const params = useParams()
     const roomId = typeof params.roomId == "object" ? params.roomId[0] : params.roomId// senão sai string[]
 

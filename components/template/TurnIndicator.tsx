@@ -1,12 +1,13 @@
-import { useEffect, useState} from "react"
+import {useEffect, useState} from "react"
 
 interface TurnIndicatorProps {
     playerIndex?: 1 | 2,
     isPLayer1Turn?: boolean,
     isFinished?: boolean,
+    isLocalMultiplayer?: boolean,
 }
 
-export const TurnIndicator = ({isPLayer1Turn, playerIndex,isFinished} :TurnIndicatorProps) => {
+export const TurnIndicator = ({isPLayer1Turn, playerIndex, isFinished, isLocalMultiplayer}: TurnIndicatorProps) => {
 
 
     const [text, setText] = useState('turn')
@@ -14,12 +15,21 @@ export const TurnIndicator = ({isPLayer1Turn, playerIndex,isFinished} :TurnIndic
     useEffect(() => {
         let newText = "Turn Info"
 
-        if (isFinished)
-            newText = "Match Finished"
-         else if (isPLayer1Turn && playerIndex === 1 || !isPLayer1Turn && playerIndex == 2)
-            newText = "Your Turn"
-         else if (isPLayer1Turn && playerIndex === 2 || !isPLayer1Turn && playerIndex == 1)
-            newText = "Opponent Turn"
+        if (isLocalMultiplayer) {
+            if (isFinished)
+                newText = "Match Finished"
+            else if (isPLayer1Turn)
+                newText = "Player 1 Turn"
+            else
+                newText = "Player 2 Turn"
+        } else {// online e bot
+            if (isFinished)
+                newText = "Match Finished"
+            else if (isPLayer1Turn && playerIndex === 1 || !isPLayer1Turn && playerIndex == 2)
+                newText = "Your Turn"
+            else if (isPLayer1Turn && playerIndex === 2 || !isPLayer1Turn && playerIndex == 1)
+                newText = "Opponent Turn"
+        }
 
 
         setText(newText)
