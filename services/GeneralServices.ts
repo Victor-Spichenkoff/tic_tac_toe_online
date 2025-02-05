@@ -5,8 +5,8 @@ import {FullOnlineInfos} from "@/types/onlineInfos";
 export const TestApiWorkService = async () => {
     return await HandleApiCall(async () => {
         const res = await api(`/teste`, {
-            timeout: 6_000
-        })
+            timeout: 8_000
+        }
         return res.data as string
     })
 }
