@@ -89,9 +89,8 @@ export default function OnlineGamePage() {
                             {/*)}*/}
                         </div>
                         {/*DRAW*/}
-                        <div className="self-start min-h-[164px] flex w-full">
+                        <div className="self-start min-h-[164px] flex w-full min-w-[170px]">
                             <div className={"flex-1 "}>
-
                                 <Point points={roomInfo.drawsCount} label={"Draw"} maxSize={15} />
                             </div>
                             <TurnIndicator
@@ -126,9 +125,8 @@ export default function OnlineGamePage() {
                             />
                         </div>
                         {/*DRAW*/}
-                        <div className="w-1/4 self-start flex flex-col h-[400px]">
+                        <div className="w-1/4 self-start flex flex-col h-[400px] min-w-[170px]">
                             <div className={"flex-1 "}>
-
                                 <Point points={roomInfo.drawsCount} label={"Draw"} maxSize={15} />
                             </div>
                             {/* <TurnIndicator/> */}
