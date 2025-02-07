@@ -1,13 +1,13 @@
-import {useCallback, useEffect, useRef} from "react"
+import {useCallback, useEffect, useRef, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {InGameOnlineState} from "@/types/onlineInfos"
-import {setSocket} from "@/libs/stores/SocketStore";
-import {FormatToObject, FormatToSocketResponse} from "@/helpers/socketMessageHandler";
-import {toast} from "sonner";
-import {setFullInGameState} from "@/libs/stores/inGameOnlineStore";
-import {RemoveConnectionService} from "@/services/connectionInfosManager";
-import {RootState} from "@/libs/redux";
-import {useRemoveConnection} from "@/hook/useRemoveConnection";
+import {setSocket} from "@/libs/stores/SocketStore"
+import {FormatToObject, FormatToSocketResponse} from "@/helpers/socketMessageHandler"
+import {toast} from "sonner"
+import {setFullInGameState} from "@/libs/stores/inGameOnlineStore"
+import {RemoveConnectionService} from "@/services/connectionInfosManager"
+import {RootState} from "@/libs/redux"
+import {useRemoveConnection} from "@/hook/useRemoveConnection"
 
 let firstLoad = true
 export const useWebSocketConnection = (
@@ -15,6 +15,7 @@ export const useWebSocketConnection = (
     roomId: string,
     playerIndex: 1 | 2,
     inGameInfo: InGameOnlineState | null | undefined,
+    canLoad: boolean = true
 ) => {
     const { destroyConnection } = useRemoveConnection(roomId, playerIndex)
 
@@ -22,13 +23,16 @@ export const useWebSocketConnection = (
     const socketRef = useRef<WebSocket | null>(null) // Garante que a instância seja única e persistente
     const existingSocketInStore = useSelector((state: RootState) => state.socketState.value)
 
-    useEffect(() => {
-        if (!roomId || !inGameInfo) return
+    const [connectOrder, setConnectOrder] = useState(0)
 
-        // if (!socketRef.current || socketRef.current.readyState !== WebSocket.OPEN){
-        //     console.log("Tentou conectar, mas já está. Cancelando...")
-        //     return
-        // }
+    useEffect(() => {
+        if (!roomId || !inGameInfo || !canLoad) return
+
+        if (existingSocketInStore && existingSocketInStore.readyState === WebSocket.OPEN) {
+            socketRef.current = existingSocketInStore
+            console.log("Usando conexão existente no Redux")
+            return
+        }
 
         // Criar a conexão WebSocket
         const ws = new WebSocket(`${socketUrl}/ws?roomId=${roomId}`)
@@ -36,8 +40,8 @@ export const useWebSocketConnection = (
 
         // se já tem, usar esse
         if (existingSocketInStore && existingSocketInStore.readyState === WebSocket.OPEN) {
-            socketRef.current = existingSocketInStore;
-            return;
+            socketRef.current = existingSocketInStore
+            return
         }
 
         dispatch(setSocket(socketRef.current)) // Armazena no Redux ou use outro estado global/local
@@ -67,7 +71,7 @@ export const useWebSocketConnection = (
         ws.onerror = (e) => {
             console.log("[FECHADO] Erro no socket: ")
             console.error(e)
-            ws.close();
+            ws.close()
         }
 
         // Cleanup na desmontagem
@@ -81,14 +85,17 @@ export const useWebSocketConnection = (
                 firstLoad = true
             }
 
-            // if (socketRef.current && socketRef.current?.readyState === WebSocket.OPEN) {
-            //     socketRef.current.close()
-            // }
+            if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+                console.log("Fechando conexão ao desmontar o componente")
+                socketRef.current.close()
+            }
 
             // ws.close()
         }
-    }, [])
+    }, [connectOrder])
     // }, [socketUrl, roomId, inGameInfo, playerIndex, dispatch])
 
-    return {socket: socketRef.current} // Retorna a instância do WebSocket se necessário
+    const orderReconnection = () => setConnectOrder(Math.random() * Math.random())
+
+    return {socket: socketRef.current,orderReconnection} // Retorna a instância do WebSocket se necessário
 }

@@ -38,7 +38,7 @@ export default function OnlineGamePage() {
     const [isLoading, startTransition] = useTransition()
     const [allowUnloadSocket, setAllowUnloadSocket] = useState(false)
 
-    const { socket } = useWebSocketConnection(socketUrl, roomId ?? "undefined", playerInfos?.playerIndex ?? 1, inGameInfo)
+    const { socket, orderReconnection } = useWebSocketConnection(socketUrl, roomId ?? "undefined", playerInfos?.playerIndex ?? 1, inGameInfo)
     // const {destroyConnection} = useRemoveConnection(roomId ?? "-1", playerInfos?.playerIndex ?? 1, )
     useDisconnectAndRemoveOnClose(roomId, playerInfos?.playerIndex)
 
@@ -49,31 +49,15 @@ export default function OnlineGamePage() {
 
     }, [inGameInfo, roomInfo])
 
-    // desligando e resetando as coisas
-    const turnEverythingOff = async () => {
-        if(!allowUnloadSocket)
-            return
-
-        console.log("Apagando infos")
-
-        toast.warning("Use effect return")
-        // await destroyConnection("[Use effect return]")
-    }
-
-    useEffect(()=> {
-        return () => { turnEverythingOff() }
-    })
-
 
     //só assim para não quebrar a conexão
-    useCallback(() => {
-        return async () => {
-            console.log("Really closing connection")
-            // await destroyConnection("[Use Callback return] Forced to remove game data!")
-            // await destroyConnection("Forced to remove game data!")
-
-        }
-    }, [playerInfos?.playerIndex, roomInfo?.roomId])
+    // useCallback(() => {
+    //     return async () => {
+    //         console.log("Really closing connection")
+    //         // await destroyConnection("[Use Callback return] Forced to remove game data!")
+    //         // await destroyConnection("Forced to remove game data!")
+    //     }
+    // }, [playerInfos?.playerIndex, roomInfo?.roomId])
 
 
     if (!isGameLoaded || !roomInfo || !inGameInfo || !roomId || !playerInfos?.playerIndex)
@@ -82,6 +66,7 @@ export default function OnlineGamePage() {
                 roomId={roomId ?? "1"}
                 startTransition={startTransition}
                 isLoading={isLoading}
+                orderReconnection={orderReconnection}
             />
         )
 

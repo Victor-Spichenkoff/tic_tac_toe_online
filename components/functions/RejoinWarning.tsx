@@ -3,28 +3,41 @@ import {Button} from "@/components/template/Button"
 import {ThemeToggleFooter} from "@/components/template/ThemeToggleFooter"
 import {toast} from "sonner"
 import {joinRoomService} from "@/services/connectionInfosManager"
-import {setFullRoomState} from "@/libs/stores/RoomState"
-import {setFullInGameState} from "@/libs/stores/inGameOnlineStore"
-import {useDispatch} from "react-redux"
+import {setFullRoomState, setRoomStateToNull} from "@/libs/stores/RoomState"
+import {setFullInGameState, setInGameStateToNull} from "@/libs/stores/inGameOnlineStore"
+import {useDispatch, useSelector} from "react-redux"
 import {getStorePlayerInfo, storePlayerInfo} from "@/libs/localStorage/playerInfos"
 import {TransitionStartFunction, useState} from "react"
 import {useRouter} from "next/navigation"
 import {setFullPlayerInfos} from "@/libs/stores/PlayerInfos";
+import {useWebSocketConnection} from "@/hook/useWebSocketConnection";
+import {socketUrl} from "@/global";
+import {RootState} from "@/libs/redux";
+import {setSocket} from "@/libs/stores/SocketStore";
 
 
 interface RejoinWarningProps {
     roomId: string
-    startTransition:  TransitionStartFunction
+    startTransition: TransitionStartFunction
     isLoading: boolean
+    orderReconnection?: () => any
 }
 
 
-
-export const RejoinWarning = ({ roomId,startTransition, isLoading }: RejoinWarningProps) => {
+export const RejoinWarning = ({roomId, startTransition, isLoading, orderReconnection}: RejoinWarningProps) => {
+    const inGameInfo = useSelector((state: RootState) => state.inGameState.value)
     const playerInfos = getStorePlayerInfo()
     const router = useRouter()
     const dispatch = useDispatch()
+    const [canLoadSocket, setCanLoadSocket] = useState(false)
+    const socket = useSelector((state: RootState) => state.socketState.value)
 
+    const preClear = () => {
+        dispatch(setRoomStateToNull())
+        dispatch(setInGameStateToNull())
+        dispatch(setFullPlayerInfos(null))
+
+    }
 
     const handleReloadDataClick = async () => {
         if (!playerInfos || !roomId) {
@@ -39,16 +52,18 @@ export const RejoinWarning = ({ roomId,startTransition, isLoading }: RejoinWarni
                 return
             }
 
+            // tentar reconectar o socket
             if (!res.response?.roomState || !res.response.inGameState) {
                 toast.error("Game state mismatch. Please rejoin the game.")
                 // se estiver com problema, descomentar, mais restrito que o outro
-                // toast.error("Room information conflict")
+                toast.error("Room information conflict")
                 return router.push("/")
             }
             if (!res.response) {
                 toast.error("Room information conflict")
                 return
             }
+
 
             dispatch(setFullRoomState(res.response?.roomState))
             dispatch(setFullInGameState(res.response?.inGameState))
@@ -59,9 +74,14 @@ export const RejoinWarning = ({ roomId,startTransition, isLoading }: RejoinWarni
                 playerIndex: res.response?.playerIndex,
             })
 
+            setCanLoadSocket(true)
             toast.info("Restoring game state...")
         })
     }
+
+    if(canLoadSocket && orderReconnection)
+        orderReconnection()
+
 
     return (
         <div className={"h-screen w-screen flex flex-col justify-center items-center gap-y-14"}>

@@ -7,8 +7,6 @@ type PLayerPointsProps = {
 }
 
 export const PlayerPoints = ({playerIndex, roomInfo}: PLayerPointsProps) => {
-    console.log(roomInfo)
-
     return (
         <div className={"w-full flex flex-row lg:flex-col h-[150px] lg:h-[500px] "}>
             {playerIndex == 1 && (

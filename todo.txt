@@ -1,7 +1,5 @@
 7
-- server está como não iniciado, no pc
-
-
+- tentar criar um page só para reconectar e voltar para o online depois
 
 6 -> bot -> 2 tipos
 - Não está trocando o para o player 2
