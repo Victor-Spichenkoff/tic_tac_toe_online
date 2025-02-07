@@ -48,8 +48,10 @@ export const ConnectionTest = ({setNavigationLock}: ConnectionTestProps) => {
         const oldTime = getStoreLastUsedTime() ?? 1
         const now = Date.now()
 
-        if (oldTime + 1000 * 60 * 10 > now)
+        if (oldTime + 1000 * 60 * 10 > now) {
+            setNavigationLock(false)
             return true
+        }
 
         const res = await TestApiWorkService()
 

@@ -39,7 +39,6 @@ export const RestartMatchButton = ({playerIndex, isBotMode, isLocalMulti}: Resta
             else
                 newMessage = "It's Drawn!"
 
-            // online
         } else if(isLocalMulti) {
             if (!offlineState) return
 
@@ -50,7 +49,6 @@ export const RestartMatchButton = ({playerIndex, isBotMode, isLocalMulti}: Resta
             else
                 newMessage = "It's Drawn!"
         }
-
         else {
             if (!inGameState) return
 
