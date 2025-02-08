@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1>Online Tic Tac Toe</h1>
+<hr />
 
-## Getting Started
+<a href="https://tic-tac-toe-online-six.vercel.app
+">Visit</a>
 
-First, run the development server:
+<h2>Features</h2>
+<ul>
+    <li>Instant responses powered by WebSockets</li>
+    <li>Play modes: online and offline</li>
+    <li>Challenging bot</li>
+    <li>Fully responsive design</li>
+    <li>Light and dark themes</li>
+</ul>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<h2>Technical Highlights</h2>
+<ul>
+    <li>Automatic reconnection support</li>
+    <li>Security to prevent unauthorized access</li>
+    <li>Delayed deletion of empty rooms, allowing reconnection</li>
+    <li>Clear API connection status indicator (shows when the server is ready)</li>
+    <li>Manifest.json to allow install on smartphone</li>
+</ul>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<hr />
+ <br><br>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<h1>Jogo da Velha Online</h1>
+<hr />
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+<a href="https://tic-tac-toe-online-six.vercel.app
+">Visitar</a>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<h2>Funcionalidades</h2>
+<ul>
+    <li>Respostas instantâneas utilizando WebSockets</li>
+    <li>Modos de jogo: online e offline</li>
+    <li>Bot desafiador</li>
+    <li>Design totalmente responsivo</li>
+    <li>Temas claro e escuro</li>
+</ul>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<h2>Destaques Técnicos</h2>
+<ul>
+    <li>Suporte a reconexão automática</li>
+    <li>Segurança para evitar acessos não autorizados</li>
+    <li>Deleção de salas vazias com atraso, permitindo reconexão</li>
+    <li>Indicador claro do status da conexão com a API (mostra quando o servidor está pronto)</li>
+     <li>Manifest.json para permitir instalar no smartphone</li>
+</ul>
