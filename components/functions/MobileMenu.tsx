@@ -27,8 +27,8 @@ export const MobileMenu = ({isPopReturn, hiddeReturn}: MobileMenuProps) => {
             <div>
                 <button
                     onClick={() => setShow(!show)}
-                    className={`z-40 border-0 border-gray-200 dark:border-gray-500 rounded-full p-2 hover:scale-105`}>
-                    <FontAwesomeIcon icon={faBars} className={"size-7 border-gray-200 dark:text-gray-500"}/>
+                    className={`flex justify-center items-center z-40 border-0 border-gray-200 dark:border-gray-500 rounded-full p-2 hover:scale-105`}>
+                    <FontAwesomeIcon icon={faBars} className={"text-2xl border-gray-200 dark:text-gray-500"}/>
                 </button>
                 <div
                     className={`${!show ? "fade-out" : "fade-in"} fixed top-0 right-0 pl-20 h-full flex flex-col 
@@ -39,7 +39,7 @@ export const MobileMenu = ({isPopReturn, hiddeReturn}: MobileMenuProps) => {
                             <button
                                 onClick={() => setShow(!show)}
                                 className={`w-fit border-0 border-gray-200 dark:border-gray-500 rounded-full p-2 hover:scale-105`}>
-                                <FontAwesomeIcon icon={faBars} className={"size-7 border-gray-200 dark:text-gray-500"}/>
+                                <FontAwesomeIcon icon={faBars} className={"text-2xl border-gray-200 dark:text-gray-500"}/>
                             </button>
 
                         </div>

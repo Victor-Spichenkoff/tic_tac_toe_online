@@ -26,7 +26,7 @@ export const ConnectionTest = ({setNavigationLock}: ConnectionTestProps) => {
         <div className={"flex gap-x-2 min-w-fit"}>
             <Button
                 label={"Play with Bot?"}
-                onClick={() => router.push("/bot")}
+                onClick={() => router.push("/local/bot")}
                 className={"text-sm"}
             />
             <Button

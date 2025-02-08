@@ -6,7 +6,7 @@ import {FullOnlineInfos, FullOnlineInfosWithPlayerIndex} from "@/types/onlineInf
 
 export const getIsFullForRoom = async (roomId: string) => {
     try {
-        const res = await api(`/room/isFull/${roomId}`)
+        const res = await api(`/room/isFull/${roomId.toLowerCase()}`)
         return ApiResponse(!!res.data)
     } catch (error) {
         console.log(error)
@@ -16,7 +16,7 @@ export const getIsFullForRoom = async (roomId: string) => {
 
 export const joinRoomService = async (roomId: string) => {
     const getInfos = async () => {
-        const res = await api.post(`/join/${roomId}`)
+        const res = await api.post(`/join/${roomId.toLowerCase()}`)
         return res.data as FullOnlineInfosWithPlayerIndex//erro aqui
     }
 
@@ -26,7 +26,7 @@ export const joinRoomService = async (roomId: string) => {
 
 export const createRoomService = async (roomId: string) => {
     const data = await HandleApiCall(async () => {
-        const res = await api.post(`/create/${roomId}`)
+        const res = await api.post(`/create/${roomId.toLowerCase()}`)
         return res.data as FullOnlineInfos
     })
 
@@ -35,14 +35,14 @@ export const createRoomService = async (roomId: string) => {
 
 export const RemoveConnectionService = async (playerIndex: 1 | 2, roomId: string) => {
     return await HandleApiCall(async () => {
-        const res = await api.post(`/disconnect/${playerIndex}/${roomId}`)
+        const res = await api.post(`/disconnect/${playerIndex}/${roomId.toLowerCase()}`)
         return !!res.data
     })
 }
 
 export const GetAllGameInfo = async (roomId: string) => {
     return await HandleApiCall(async () => {
-        const res = await api(`/infos/${roomId}`)
+        const res = await api(`/infos/${roomId.toLowerCase()}`)
         return res.data as FullOnlineInfos
     })
 }
