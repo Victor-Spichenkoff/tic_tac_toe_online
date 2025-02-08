@@ -20,6 +20,7 @@ import {OnlineFullGame} from "@/components/functions/OnlineFullGame";
 import {ThemeToggleFooter} from "@/components/template/ThemeToggleFooter";
 import {OfflineFullGame} from "@/components/functions/OfflineFullGame";
 import {Loading} from "@/components/template/Loading";
+import {MobileMenu} from "@/components/functions/MobileMenu";
 
 export default function BotPage() {
     const gameState = useSelector((state: RootState) => state.botState.value)
@@ -34,6 +35,7 @@ export default function BotPage() {
 
     return (
         <div className={"w-screen max-w-[1200px] px-4 mx-auto"}>
+            <MobileMenu />
             {isLoading && (<Loading/>)}
             {gameState.isFinished && (
                 <RestartMatchButton
@@ -64,7 +66,7 @@ export default function BotPage() {
                             {/*)}*/}
                         </div>
                         {/*DRAW*/}
-                        <div className="self-start min-w-[170px] min-h-[164px] flex w-full">
+                        <div className="self-start min-w-[170px] min-h-[164px] flex w-full mt-5">
                             <div className={"flex-1 "}>
                                 <Point points={gameState.drawCount} label={"Draw"} maxSize={15}/>
                             </div>

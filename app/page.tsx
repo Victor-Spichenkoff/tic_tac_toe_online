@@ -10,6 +10,7 @@ import {ConnectionTest} from "@/components/functions/ConnectionTest";
 import {setFullInGameBotState} from "@/libs/stores/inGameOfflineStore";
 import {getResetLocalState} from "@/helpers/Bot";
 import {useDispatch} from "react-redux";
+import {MobileMenu} from "@/components/functions/MobileMenu";
 export default function Home() {
     const router = useRouter()
     const [navigationLock, setNavigationLock] = useState(true)
@@ -32,6 +33,7 @@ export default function Home() {
 
     return (
         <div className={'flex justify-center items-center'}>
+            <MobileMenu hiddeReturn/>
             { navigationLock && <ConnectionTest setNavigationLock={setNavigationLock} /> }
                 <div className={"h-screen flex flex-col items-center justify-center gap-y-40"}>
                    <Header label={"Mode Choose"}/>

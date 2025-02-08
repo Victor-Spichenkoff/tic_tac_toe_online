@@ -31,7 +31,7 @@ export const RestartMatchButton = ({playerIndex, isBotMode, isLocalMulti}: Resta
         //offline
         if (isBotMode) {
             if (!offlineState) return
-            console.log(offlineState)
+
             if (offlineState.player2Wins)
                 newMessage = "You Lose"
             else if (offlineState.player1Wins)
@@ -52,12 +52,12 @@ export const RestartMatchButton = ({playerIndex, isBotMode, isLocalMulti}: Resta
         else {
             if (!inGameState) return
 
-            if (inGameState.isDrawn)
+            if (inGameState?.isDrawn)
                 newMessage = "It's Drawn!"
-            else if (inGameState.player1Wins && playerIndex === 1 || inGameState.player2Wins && playerIndex == 2)
-                newMessage = "You Lose"
-            else if (inGameState.player1Wins && playerIndex === 2 || inGameState.player2Wins && playerIndex == 1)
+            else if ((inGameState?.player1Wins && playerIndex === 1) || (inGameState?.player2Wins && playerIndex == 2))
                 newMessage = "You Won"
+            else if (inGameState?.player1Wins && playerIndex === 2 || inGameState?.player2Wins && playerIndex == 1)
+                newMessage = "You Lose"
         }
 
 

@@ -1,6 +1,6 @@
 7
 - não mostra o texto correto no online ao terminanr o jogo (só Match finsihed)
-- Ao sair fazer uma partda e sair (home) ele mosntra wait server to start
+- Ao abrir o mobile menu (por diminuir o tamanho), ele pisca
 
 6 -> bot -> 2 tipos
 - Não está trocando o para o player 2

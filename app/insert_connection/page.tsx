@@ -22,6 +22,7 @@ import {setFullInGameState} from "@/libs/stores/inGameOnlineStore";
 import {storePlayerInfo} from "@/libs/localStorage/playerInfos";
 import {setFullPlayerInfos} from "@/libs/stores/PlayerInfos";
 import {useCheckConnectionAndRedirect} from "@/hook/useCheckConnection";
+import {MobileMenu} from "@/components/functions/MobileMenu";
 
 export default function CreateConnectionScreen() {
     useCheckConnectionAndRedirect()
@@ -68,7 +69,7 @@ export default function CreateConnectionScreen() {
     return (
         <div className={"flex flex-col items-center h-screen"}>
             { isLoading && <Loading /> }
-
+            <MobileMenu />
             <Header label={"Join a game"} className={"mt-4"}/>
             <div className={"flex flex-col items-center justify-center flex-1 -mt-32"}>
                 {/* Inputs */}

@@ -14,6 +14,7 @@ import {useWebSocketConnection} from "@/hook/useWebSocketConnection";
 import {socketUrl} from "@/global";
 import {RootState} from "@/libs/redux";
 import {setSocket} from "@/libs/stores/SocketStore";
+import {MobileMenu} from "@/components/functions/MobileMenu";
 
 
 interface RejoinWarningProps {
@@ -85,8 +86,9 @@ export const RejoinWarning = ({roomId, startTransition, isLoading, orderReconnec
 
     return (
         <div className={"h-screen w-screen flex flex-col justify-center items-center gap-y-14"}>
+            <MobileMenu />
             {isLoading && <Loading/>}
-            <div className={"text-9xl text-red-600"}>No data</div>
+            <div className={"text-6xl lg:text-9xl text-red-600"}>No data</div>
             <Button onClick={() => handleReloadDataClick()}>Try to Reload?</Button>
             <ThemeToggleFooter useReturnHomeButton>
             </ThemeToggleFooter>

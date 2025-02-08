@@ -25,7 +25,7 @@ export const ThemeToggleFooter = ({children, useReturnHomeButton,usePopReturnHom
     }
 
     return (
-        <div className={"absolute bottom-4 right-4 flex gap-x-4"}>
+        <div className={"absolute bottom-4 right-4 gap-x-4 hidden lg:flex"}>
             {(useReturnHomeButton || usePopReturnHomeButton) && (
                 <Button onClick={handleReturnButton} className={"h-[40px] inline-block"}>
                     <FontAwesomeIcon icon={faArrowLeft}/>

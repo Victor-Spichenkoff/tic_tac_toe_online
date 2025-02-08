@@ -20,3 +20,38 @@ body {
   background-image: radial-gradient(circle, rgba(0, 0, 0, 0.1) 5%, transparent 90%);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.l{
+  background-color: #28442b;
+  /*background-color: #3f6b44;*/
+}
+
+
+/* Fade-in: começa transparente e aparece */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    /*display: none;*/
+  }
+}
+.fade-in {
+  animation: fade-in 0.5s ease-in-out forwards;
+}
+
+/* Fade-out: começa visível e desaparece */
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation: fade-out 0.5s ease-in-out forwards;
+}
+

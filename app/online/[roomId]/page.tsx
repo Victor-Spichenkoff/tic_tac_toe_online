@@ -24,6 +24,7 @@ import {useRemoveConnection} from "@/hook/useRemoveConnection";
 import {RestartMatchButton} from "@/components/functions/RestartMatchButton";
 import {useCheckConnectionAndRedirect} from "@/hook/useCheckConnection";
 import {useDisconnectAndRemoveOnClose} from "@/hook/useDisconnectAndRemoveOnClose";
+import {MobileMenu} from "@/components/functions/MobileMenu";
 
 export default function OnlineGamePage() {
     useCheckConnectionAndRedirect()
@@ -73,6 +74,7 @@ export default function OnlineGamePage() {
 
     return (
         <div className={"w-screen max-w-[1200px] px-4 mx-auto"}>
+            <MobileMenu />
             { inGameInfo.isFinished && <RestartMatchButton playerIndex={playerInfos.playerIndex ?? 1}/> }
             <div className={"flex justify-center"}>
                 <Header label={"GAME"} />
@@ -89,7 +91,7 @@ export default function OnlineGamePage() {
                             {/*)}*/}
                         </div>
                         {/*DRAW*/}
-                        <div className="self-start min-h-[164px] flex w-full min-w-[170px]">
+                        <div className="self-start min-h-[164px] flex w-full min-w-[170px] mt-5">
                             <div className={"flex-1 "}>
                                 <Point points={roomInfo.drawsCount} label={"Draw"} maxSize={15} />
                             </div>
