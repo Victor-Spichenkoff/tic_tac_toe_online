@@ -1,0 +1,21 @@
+{
+  "name": "Online Toe",
+  "short_name": "Toe",
+  "description": "An online and offline tic tac toe game",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#355E3B",
+  "theme_color": "#355E3B00",
+  "display": "fullscreen"
+}

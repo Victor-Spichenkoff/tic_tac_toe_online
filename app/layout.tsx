@@ -46,8 +46,12 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
     title: "Tic Tac Toe Online",
-    description: "PLay Tic Tac Toe Online or Offline  ",
-};
+    manifest: "/manifest.json",
+    description: "PLay Tic Tac Toe Online or Offline",
+    icons: {
+        icon: "/icons/icon-192x192.png",
+        apple: "/icons/icon-512x512.png"
+    },};
 
 export default function RootLayout({children,
                                    }: Readonly<{
