@@ -21,11 +21,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.l{
-  background-color: #28442b;
-  /*background-color: #3f6b44;*/
-}
-
 
 /* Fade-in: começa transparente e aparece */
 @keyframes fade-in {

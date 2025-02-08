@@ -32,7 +32,7 @@ export const MobileMenu = ({isPopReturn, hiddeReturn}: MobileMenuProps) => {
     }
 
     return (
-        <div className={`absolute right-4 top-4  lg:hidden`}>
+        <div className={`absolute right-4 top-4 lg:hidden`}>
             <div>
                 <button
                     onClick={handleMenuClick}
@@ -40,8 +40,8 @@ export const MobileMenu = ({isPopReturn, hiddeReturn}: MobileMenuProps) => {
                     <FontAwesomeIcon icon={faBars} className={"text-2xl border-gray-200 dark:text-gray-500"}/>
                 </button>
                 <div
-                    className={`${isFirst && "hidden"} ${!show ? "fade-out" : "fade-in"} fixed top-0 right-0 pl-20 h-full flex flex-col 
-                        l abg-lightMenu dark:bg-darkMenu  border-l border-white/40
+                    className={`${isFirst && "hidden"} ${!show ? "fade-out" : "fade-in"} fixed top-0 right-0 pl-40 h-full flex flex-col 
+                        bg-lightMenu dark:bg-darkMenu  border-l border-white/40
                         flex flex-row-reverse z-40`}>
                     <div className={"h-full flex flex-col justify-between items-end pr-4 py-4 opacity-100"}>
                         <div>
@@ -66,10 +66,8 @@ export const MobileMenu = ({isPopReturn, hiddeReturn}: MobileMenuProps) => {
                         </div>
                     </div>
                 </div>
-                {show && (
-                    <div className={"fade-in fixed top-0 left-0 w-screen h-screen bg-black/50 z-30"}
+                    <div className={`${!show ? "fade-out" : "fade-in"} fade-in fixed top-0 left-0 w-screen h-screen bg-black/50 z-30`}
                          onClick={() => setShow(false)}></div>
-                )}
             </div>
         </div>
     )

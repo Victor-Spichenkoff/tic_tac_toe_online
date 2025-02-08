@@ -16,7 +16,7 @@ export default {
         foreground: "var(--foreground)",
         lightBackground: "#355E3B",
         darkBackground: "#222222",
-        lightMenu: "#4E7852",
+        lightMenu: "#28442b",
         darkMenu: "#1A1A1A",
         lightCircle: "#2097D2",
         darkCircle: "#4CAF50",
