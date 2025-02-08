@@ -17,6 +17,6 @@ export const usePlayerInfo = () => {
     if(locaStoragePLayerInfo)
         return locaStoragePLayerInfo
 
-    toast.error("There is not player info")
+    // toast.error("There is not player info")
     return null
 }
